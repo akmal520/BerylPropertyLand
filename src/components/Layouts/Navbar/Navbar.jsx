@@ -1,3 +1,4 @@
+import Logo1 from '../../../assets/Logo-1-removebg-preview.png';
 import Nav from './Nav';
 import NavMobile from './NavMobile';
 import React, { useState } from 'react';
@@ -9,9 +10,10 @@ const Navbar = (props) => {
         <header className="flex items-center top-0 w-full h-18 bg-white/50 text-[#110229] z-10 transition-all duration-300 ">
             <div className="container p-8 mx-auto h-full flex items-center justify-between">
                 <Link to="/">
-                    <span className="font-bold lg:text-xl">
+                    <img src={Logo1} alt="logo" className="w-36" />
+                    {/* <span className="font-bold lg:text-xl">
                         Beryl Porperty Land
-                    </span>
+                    </span> */}
                 </Link>
 
                 <div className="hidden lg:block">

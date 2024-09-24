@@ -49,7 +49,9 @@ const SearchBar = () => {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                 >
-                    <option value="">Select Your City</option>
+                    <option value="" disabled>
+                        Select Your City
+                    </option>
                     <option value="New York">New York</option>
                     <option value="Los Angeles">Los Angeles</option>
                     <option value="Chicago">Chicago</option>
