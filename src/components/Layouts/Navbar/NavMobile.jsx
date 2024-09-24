@@ -1,5 +1,6 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
 const navigation = [
@@ -27,7 +28,7 @@ const NavMobile = () => {
         <nav className="relative z-20">
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="cursor-pointer text-black"
+                className="cursor-pointer text-black hover:text-yellow-700"
             >
                 <Bars3Icon className="w-8 h-8" />
             </div>
@@ -45,7 +46,7 @@ const NavMobile = () => {
             >
                 <div
                     onClick={() => setIsOpen(!isOpen)}
-                    className="cursor-pointer absolute top-6 right-6 text-black hover:text-green-600"
+                    className="cursor-pointer absolute top-6 right-6 text-black hover:text-yellow-700"
                 >
                     <XMarkIcon className="w-8 h-8" />
                 </div>
@@ -53,7 +54,7 @@ const NavMobile = () => {
                 {navigation.map((item, index) => (
                     <li
                         key={index}
-                        className="mb-8 text-black hover:text-green-600 transition-all duration-100 text-center"
+                        className="mb-8 text-black hover:text-yellow-700 transition-all duration-100 text-center"
                     >
                         <Link
                             to={item.path}
@@ -63,6 +64,28 @@ const NavMobile = () => {
                         </Link>
                     </li>
                 ))}
+                <div className="flex space-x-4">
+                    <Link
+                        to="#instagram"
+                        className="hover:text-yellow-700 transition-all duration-300"
+                    >
+                        <FaInstagram className="w-6 h-6" />
+                    </Link>
+
+                    <Link
+                        to="#twitter"
+                        className="hover:text-yellow-700 transition-all duration-300"
+                    >
+                        <FaTwitter className="w-6 h-6" />
+                    </Link>
+
+                    <Link
+                        to="#facebook"
+                        className="hover:text-yellow-700 transition-all duration-300"
+                    >
+                        <FaFacebook className="w-6 h-6" />
+                    </Link>
+                </div>
             </ul>
         </nav>
     );
