@@ -30,6 +30,7 @@ const PropertyPage = () => {
                         >
                             <p>City: {item.city}</p>
                             <p>Property Type: {item.propertyType}</p>
+                            <p>Sell Type: {item.sellType}</p>
                             <p>Price: ${item.price.toLocaleString()}</p>
                         </li>
                     ))}

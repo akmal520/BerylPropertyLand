@@ -1,4 +1,5 @@
 import SearchBar from '../../Fragments/SearchBar';
+import Search from '@/components/Fragments/Search';
 import React from 'react';
 
 const Hero = () => {
@@ -20,6 +21,7 @@ const Hero = () => {
 
                 <div className="mt-11">
                     <SearchBar />
+                    {/* <Search /> */}
                 </div>
             </div>
         </section>
