@@ -95,7 +95,7 @@ const SearchBar = () => {
                     Rent
                 </button>
             </div>
-            <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg py-4 px-8 space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex flex-col md:flex-row bg-white/70 backdrop-blur-lg shadow-md rounded-lg py-4 px-8 space-y-4 md:space-y-0 md:space-x-4">
                 {/* Location Field */}
                 <div className="flex flex-col items-start space-x-2 lg:border-r px-4 w-full md:w-auto">
                     <label className="text-gray-500 font-semibold ml-3">
