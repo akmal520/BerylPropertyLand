@@ -1,29 +1,20 @@
+import { dataNavigation } from '@/data/datas';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
-const navigation = [
-    {
-        name: 'beranda',
-        path: '/',
-    },
-    {
-        name: 'bergabung dengan kami',
-        path: '/join',
-    },
-    {
-        name: 'tentang kami',
-        path: '/about',
-    },
-    {
-        name: 'hubungi kami',
-        path: '/contact-us',
-    },
-];
-
 const NavMobile = () => {
     const [isOpen, setIsOpen] = useState(false);
+
+    // disable body scroll
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isOpen]);
     return (
         <nav className="relative z-20">
             <div
@@ -51,7 +42,7 @@ const NavMobile = () => {
                     <XMarkIcon className="w-8 h-8" />
                 </div>
 
-                {navigation.map((item, index) => (
+                {dataNavigation.map((item, index) => (
                     <li
                         key={index}
                         className="mb-8 text-black hover:text-yellow-700 transition-all duration-100 text-center"

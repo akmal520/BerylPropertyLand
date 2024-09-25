@@ -70,6 +70,7 @@ export default {
             padding: {
                 default: '1rem',
                 sm: '2rem',
+                md: '4rem',
                 lg: '4rem',
                 xl: '5rem',
                 '2xl': '6rem',

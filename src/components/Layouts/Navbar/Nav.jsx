@@ -1,30 +1,12 @@
+import { dataNavigation } from '@/data/datas';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-const navigation = [
-    {
-        name: 'beranda',
-        path: '/',
-    },
-    {
-        name: 'bergabung dengan kami',
-        path: '/join',
-    },
-    {
-        name: 'tentang kami',
-        path: '/about',
-    },
-    {
-        name: 'hubungi kami',
-        path: '/contact-us',
-    },
-];
 
 const Nav = () => {
     return (
         <nav>
             <ul className="flex space-x-8 uppercase tracking-wide text-base">
-                {navigation.map((item, index) => (
+                {dataNavigation.map((item, index) => (
                     <li
                         key={index}
                         className="text-yellow-600 hover:text-yellow-700 cursor-pointer"
