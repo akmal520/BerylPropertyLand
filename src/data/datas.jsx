@@ -20,6 +20,22 @@ export const dataNavigation = [
     },
 ];
 
+export const dataRooms = [
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5+', value: 5 },
+];
+
+export const dataRangesPrice = [
+    { label: '< Rp 1 M', min: '', max: '1000000000' },
+    { label: 'Rp 1 M - Rp 2 M', min: '1000000000', max: '2000000000' },
+    { label: 'Rp 2 M - Rp 3 M', min: '2000000000', max: '3000000000' },
+    { label: 'Rp 3 M - Rp 5 M', min: '3000000000', max: '5000000000' },
+    { label: '> Rp 5 M', min: '5000000000', max: '' },
+];
+
 export const dataListProperty = [
     {
         id: 1,

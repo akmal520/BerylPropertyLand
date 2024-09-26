@@ -51,14 +51,11 @@ const PropertyCard = () => {
                 {filteredData.length > 0 ? (
                     <div className="flex flex-wrap items-center gap-6 md:gap-6">
                         {filteredData.map((item) => (
-                            <Link
-                                to={`/property/detail/${item.id}`}
+                            <Card
+                                className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden border-gray-400"
                                 key={item.id}
                             >
-                                <Card
-                                    className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden"
-                                    key={item.id}
-                                >
+                                <Link to={`/property/detail/${item.id}`}>
                                     <CardHeader className="p-2">
                                         <img
                                             src={item.imgProperty}
@@ -100,55 +97,55 @@ const PropertyCard = () => {
                                             </p>
                                         </div>
                                     </CardContent>
-                                    <CardFooter className="p-2 mb-4">
-                                        <div className="flex justify-center items-center w-full gap-4">
-                                            <img
-                                                src={item.img}
-                                                alt="developer"
-                                                className="rounded-full border border-primary w-16 h-16 "
-                                            />
+                                </Link>
+                                <CardFooter className="p-2 mb-4">
+                                    <div className="flex justify-center items-center w-full gap-4">
+                                        <img
+                                            src={item.img}
+                                            alt="developer"
+                                            className="rounded-full border border-primary w-16 h-16 "
+                                        />
 
-                                            <div className="flex flex-col  w-[500px]">
-                                                <h4 className="capitalize text-head text-lg md:text-base font-medium">
-                                                    {item.developer}
-                                                </h4>
-                                                <Separator className="h-0.5 bg-sub_head rounded-full" />
-                                                <h5 className="capitalize text-sub_head text-sm md:text-sm font-medium">
-                                                    {item.bachelor_degree}
-                                                </h5>
-                                            </div>
+                                        <div className="flex flex-col w-[500px] select-none">
+                                            <h4 className="capitalize text-head text-lg md:text-base font-medium">
+                                                {item.developer}
+                                            </h4>
+                                            <Separator className="h-0.5 bg-sub_head rounded-full" />
+                                            <h5 className="capitalize text-sub_head text-sm md:text-sm font-medium">
+                                                {item.bachelor_degree}
+                                            </h5>
+                                        </div>
 
-                                            <div className="flex items-center w-full gap-2">
-                                                <Link
-                                                    target="_blank"
-                                                    to={`https://wa.me/${item.number}`}
-                                                >
-                                                    <div className="p-2 border-2 border-primary rounded-full flex items-center justify-center transition-all duration-300 hover:bg-green-700 hover:text-white hover:border-green-700">
-                                                        {/* <FaWhatsapp className="w-5 h-5 inline mr-0.5" /> */}
-                                                        <FaWhatsapp className="w-5 h-5" />
-                                                        {/* <span className="text-xs">
+                                        <div className="flex items-center w-full gap-2">
+                                            <Link
+                                                target="_blank"
+                                                to={`https://wa.me/${item.number}`}
+                                            >
+                                                <div className="p-2 border-2 border-primary rounded-full flex items-center justify-center transition-all duration-300 hover:bg-green-700 hover:text-white hover:border-green-700">
+                                                    {/* <FaWhatsapp className="w-5 h-5 inline mr-0.5" /> */}
+                                                    <FaWhatsapp className="w-5 h-5" />
+                                                    {/* <span className="text-xs">
                                                         WhatsApp
                                                     </span> */}
-                                                    </div>
-                                                </Link>
+                                                </div>
+                                            </Link>
 
-                                                <Link
-                                                    target="_blank"
-                                                    to={`tel:${item.number}`}
-                                                >
-                                                    <div className="p-2 border-2 border-primary rounded-full flex items-center justify-center transition-all duration-300 hover:bg-blue-800 hover:text-white hover:border-blue-800">
-                                                        {/* <FiPhone className="w-5 h-5 inline mr-1.5" /> */}
-                                                        <FiPhone className="w-5 h-5" />
-                                                        {/* <span className="text-xs">
+                                            <Link
+                                                target="_blank"
+                                                to={`tel:${item.number}`}
+                                            >
+                                                <div className="p-2 border-2 border-primary rounded-full flex items-center justify-center transition-all duration-300 hover:bg-blue-800 hover:text-white hover:border-blue-800">
+                                                    {/* <FiPhone className="w-5 h-5 inline mr-1.5" /> */}
+                                                    <FiPhone className="w-5 h-5" />
+                                                    {/* <span className="text-xs">
                                                         Phone
                                                     </span> */}
-                                                    </div>
-                                                </Link>
-                                            </div>
+                                                </div>
+                                            </Link>
                                         </div>
-                                    </CardFooter>
-                                </Card>
-                            </Link>
+                                    </div>
+                                </CardFooter>
+                            </Card>
                         ))}
                     </div>
                 ) : (

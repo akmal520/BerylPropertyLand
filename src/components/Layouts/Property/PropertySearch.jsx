@@ -12,14 +12,18 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { dataListProperty } from '@/data/datas';
+import {
+    dataListProperty,
+    dataRooms,
+    dataRangesPrice as ranges,
+} from '@/data/datas';
 import { Filter, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const PropertySearch = () => {
-    const [searchBar, setSearchBar] = useState('');
-    const [selectPriceRange, setSelectPriceRange] = useState('');
+    // const [searchBar, setSearchBar] = useState('');
+    // const [selectPriceRange, setSelectPriceRange] = useState('');
     const [selectPropertyType, setSelectPropertyType] = useState('');
     const [selectLocation, setSelectLocation] = useState('');
     // const [selectRooms, setSelectRooms] = useState({
@@ -35,58 +39,7 @@ const PropertySearch = () => {
 
     const navigate = useNavigate();
 
-    const ranges = [
-        { label: '< Rp 1 M', min: '', max: '1000000000' },
-        { label: 'Rp 1 M - Rp 2 M', min: '1000000000', max: '2000000000' },
-        { label: 'Rp 2 M - Rp 3 M', min: '2000000000', max: '3000000000' },
-        { label: 'Rp 3 M - Rp 5 M', min: '3000000000', max: '5000000000' },
-        { label: '> Rp 5 M', min: '5000000000', max: '' },
-    ];
-
-    const dataRooms = [
-        { label: '1', value: 1 },
-        { label: '2', value: 2 },
-        { label: '3', value: 3 },
-        { label: '4', value: 4 },
-        { label: '5+', value: 5 },
-    ];
-    const dataBedRooms = [
-        { label: '1', value: 1 },
-        { label: '2', value: 2 },
-        { label: '3', value: 3 },
-        { label: '4', value: 4 },
-        { label: '5+', value: 5 },
-    ];
-
     // ambil data local storage dataFilter lalu masukin ke state selectLocation
-    // useEffect(() => {
-    //     const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
-
-    //     if (dataFilter.length > 0) {
-    //         const { location, propertyType, priceRange } = dataFilter[0];
-
-    //         if (location) {
-    //             setSelectLocation(location);
-    //         }
-
-    //         if (propertyType) {
-    //             setSelectPropertyType(propertyType);
-    //         }
-
-    //         if (priceRange) {
-    //             const [minPrice, maxPrice] = priceRange
-    //                 ? priceRange
-    //                       .split('-')
-    //                       .map((price) => parseInt(price.replace(/\D/g, '')))
-    //                 : [0, Infinity];
-
-    //             setMinPrice(
-    //                 minPrice.toString() === '0' ? '' : minPrice.toString()
-    //             );
-    //             setMaxPrice(maxPrice.toString());
-    //         }
-    //     }
-    // }, []);
 
     const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
     useEffect(() => {
@@ -185,15 +138,8 @@ const PropertySearch = () => {
     const handleInputSearchBar = (e) => {
         const searcTerm = e.target.value.toLocaleLowerCase();
         if (searcTerm.length > 0) {
-            // setSearchBar(searcTerm);
-
-            // const newFilteredData = dataListProperty.filter((data) => {
-            //     // return Object.values(data.city).some((value) =>
-            //     //     value.toString().toLocaleLowerCase().includes(searcTerm)
-            //     // );
-            //     return data.city.toLocaleLowerCase().includes(searcTerm);
-            // });
             setSelectLocation(searcTerm);
+
             // buat set localStorage dataFilter value location jadi kosong
             dataFilter[0].location = '';
             localStorage.setItem('dataFilter', JSON.stringify(dataFilter));
@@ -203,7 +149,6 @@ const PropertySearch = () => {
     };
 
     const handleRangeClick = (range) => {
-        // if (selectPriceRange === range.label) {
         if (minPrice === range.min && maxPrice === range.max) {
             setMinPrice('');
             setMaxPrice('');
@@ -413,7 +358,7 @@ const PropertySearch = () => {
                                             bedroom
                                         </h3>
                                         <div className="flex flex-wrap gap-4">
-                                            {dataBedRooms.map((item, index) => (
+                                            {dataRooms.map((item, index) => (
                                                 <Button
                                                     key={index}
                                                     onClick={() =>
