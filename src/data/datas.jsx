@@ -1,3 +1,6 @@
+import AvaFemale from '../assets/female.jpg';
+import AvaMale from '../assets/male.jpg';
+
 export const dataNavigation = [
     {
         name: 'beranda',
@@ -30,11 +33,15 @@ export const dataListProperty = [
         bedroom: 2,
         bathroom: 1,
         address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
+        developer: 'angelica mortar',
+        bachelor_degree: 'marketing associate',
+        img: AvaFemale,
+        number: '081234567890',
     },
     {
         id: 2,
         city: 'jakarta',
-        propertyType: 'House',
+        propertyType: 'Residential',
         price: 750000,
         status: 'Available',
         sellType: 'Rent',
@@ -43,6 +50,10 @@ export const dataListProperty = [
         bedroom: 4,
         bathroom: 2,
         address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
+        developer: 'jhonson barbar',
+        bachelor_degree: 'marketing associate',
+        img: AvaMale,
+        number: '081234567890',
     },
     {
         id: 3,
@@ -56,5 +67,26 @@ export const dataListProperty = [
         bedroom: 6,
         bathroom: 4,
         address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
+        developer: 'rebeca stun',
+        bachelor_degree: 'marketing associate',
+        img: AvaFemale,
+        number: '081234567890',
+    },
+    {
+        id: 4,
+        city: 'bogor',
+        propertyType: 'ruko',
+        price: 1200000,
+        status: 'Available',
+        sellType: 'Buy',
+        lt: 98,
+        lb: 86,
+        bedroom: 6,
+        bathroom: 4,
+        address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
+        developer: 'daniel punten',
+        bachelor_degree: 'marketing associate',
+        img: AvaMale,
+        number: '081234567890',
     },
 ];
