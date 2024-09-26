@@ -10,6 +10,16 @@ const SearchBar = () => {
     const [sellType, setSellType] = useState('');
     const navigate = useNavigate();
 
+    // console.log(priceRange);
+
+    const ranges = [
+        { label: '< Rp 1 M', min: '0', max: '1000000000' },
+        { label: 'Rp 1 M - Rp 2 M', min: '1000000000', max: '2000000000' },
+        { label: 'Rp 2 M - Rp 3 M', min: '2000000000', max: '3000000000' },
+        { label: 'Rp 3 M - Rp 5 M', min: '3000000000', max: '5000000000' },
+        { label: '> Rp 5 M', min: '5000000000', max: '' },
+    ];
+
     // filter kota  yang sama
     const uniqueCities = [
         ...new Set(dataListProperty.map((item) => item.city)),
@@ -40,6 +50,17 @@ const SearchBar = () => {
 
         // Simpan hasil pencarian ke localStorage
         localStorage.setItem('filteredData', JSON.stringify(filteredData));
+
+        localStorage.setItem(
+            'dataFilter',
+            JSON.stringify([
+                {
+                    location,
+                    propertyType,
+                    priceRange,
+                },
+            ])
+        );
 
         // Navigasi ke halaman /property dengan data yang difilter
         navigate('/property', { state: { filteredData } });
@@ -142,15 +163,24 @@ const SearchBar = () => {
                         onChange={(e) => setPriceRange(e.target.value)}
                     >
                         <option value="">Choose Price Range</option>
-                        <option value="$100,000 - $500,000">
-                            $100,000 - $500,000
+                        {ranges.map((range, index) => (
+                            <option
+                                key={index}
+                                value={`${range.min} - ${range.max}`}
+                                className="capitalize"
+                            >
+                                {range.label}
+                            </option>
+                        ))}
+                        {/* <option value="0 - Rp1,000,000,000">
+                            {'< '} Rp 1 M
                         </option>
                         <option value="$500,000 - $1,000,000">
                             $500,000 - $1,000,000
                         </option>
                         <option value="$1,000,000 - $1,500,000">
                             $1,000,000 - $1,500,000
-                        </option>
+                        </option> */}
                     </select>
                 </div>
 

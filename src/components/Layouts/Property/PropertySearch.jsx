@@ -15,14 +15,17 @@ import { Separator } from '@/components/ui/separator';
 import { dataListProperty } from '@/data/datas';
 import { Filter, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PropertySearch = () => {
+    const [searchBar, setSearchBar] = useState('');
     const [selectPriceRange, setSelectPriceRange] = useState('');
     const [selectPropertyType, setSelectPropertyType] = useState('');
-    const [selectRooms, setSelectRooms] = useState({
-        bedroom: null,
-        bathroom: null,
-    });
+    const [selectLocation, setSelectLocation] = useState('');
+    // const [selectRooms, setSelectRooms] = useState({
+    //     bedroom: null,
+    //     bathroom: null,
+    // });
     const [selectBedRooms, setSelectBedRooms] = useState(null);
     const [selectBathRooms, setSelectBathRooms] = useState(null);
     const [minPrice, setMinPrice] = useState('');
@@ -30,12 +33,7 @@ const PropertySearch = () => {
 
     const [filteredData, setFilteredData] = useState([]);
 
-    // console.log(selectRooms.bathroom);
-    // console.log(selectRooms.bedroom);
-    // console.log(minPrice);
-    // console.log(maxPrice);
-    // console.log(selectPropertyType);
-    // console.log(selectPriceRange);
+    const navigate = useNavigate();
 
     const ranges = [
         { label: '< Rp 1 M', min: '', max: '1000000000' },
@@ -52,39 +50,107 @@ const PropertySearch = () => {
         { label: '4', value: 4 },
         { label: '5+', value: 5 },
     ];
+    const dataBedRooms = [
+        { label: '1', value: 1 },
+        { label: '2', value: 2 },
+        { label: '3', value: 3 },
+        { label: '4', value: 4 },
+        { label: '5+', value: 5 },
+    ];
+
+    // ambil data local storage dataFilter lalu masukin ke state selectLocation
+    // useEffect(() => {
+    //     const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
+
+    //     if (dataFilter.length > 0) {
+    //         const { location, propertyType, priceRange } = dataFilter[0];
+
+    //         if (location) {
+    //             setSelectLocation(location);
+    //         }
+
+    //         if (propertyType) {
+    //             setSelectPropertyType(propertyType);
+    //         }
+
+    //         if (priceRange) {
+    //             const [minPrice, maxPrice] = priceRange
+    //                 ? priceRange
+    //                       .split('-')
+    //                       .map((price) => parseInt(price.replace(/\D/g, '')))
+    //                 : [0, Infinity];
+
+    //             setMinPrice(
+    //                 minPrice.toString() === '0' ? '' : minPrice.toString()
+    //             );
+    //             setMaxPrice(maxPrice.toString());
+    //         }
+    //     }
+    // }, []);
+
+    const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
+    useEffect(() => {
+        if (dataFilter.length > 0) {
+            const {
+                location = '',
+                propertyType = '',
+                priceRange = '',
+            } = dataFilter[0];
+
+            setSelectLocation(location);
+            setSelectPropertyType(propertyType);
+
+            if (priceRange) {
+                const [minPrice, maxPrice] = priceRange
+                    .split('-')
+                    .map((price) => parseInt(price.replace(/\D/g, ''), 10));
+
+                setMinPrice(minPrice ? minPrice.toString() : '');
+                setMaxPrice(maxPrice.toString());
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const newFilteredData = dataListProperty.filter((data) => {
-            // (selectPropertyType === '' ||
-            //     data.propertyType === selectPropertyType) &&
-            // (selectRooms.bathroom === null ||
-            //     data.bathroom === selectRooms.bathroom) &&
-            // (selectRooms.bedroom === null ||
-            //     data.bedroom === selectRooms.bedroom ||
-            //     data.bedroom >= 5) &&
-            // data.price >= minPrice &&
-            // data.price <= maxPrice
+            // const searchMatch =
+            //     searchBar === '' ||
+            //     data.includes(searchBar.toLocaleLowerCase());
+
+            const locationMatch =
+                selectLocation === '' ||
+                data.city === selectLocation ||
+                data.city.includes(selectLocation);
+
             const propertyTypeMatch =
                 selectPropertyType === '' ||
                 data.propertyType === selectPropertyType;
-            const bathRoomsMatch =
-                selectBathRooms === null ||
-                data.bathroom === selectBathRooms ||
-                data.bathroom >= 5;
+
             const bedRoomsMatch =
                 selectBedRooms === null ||
-                data.bedroom === selectBedRooms ||
-                data.bedroom >= 5;
+                (selectBedRooms === 5
+                    ? data.bedroom >= 5
+                    : data.bedroom === selectBedRooms);
+
+            const bathRoomsMatch =
+                selectBathRooms === null ||
+                (selectBathRooms === 5
+                    ? data.bathroom >= 5
+                    : data.bathroom === selectBathRooms);
+
             const minPriceMatch =
                 minPrice === '' || data.price >= parseCurrency(minPrice);
+
             const maxPriceMatch =
                 maxPrice === '' || data.price <= parseCurrency(maxPrice);
+
             const priceMatch = minPriceMatch && maxPriceMatch;
             return (
                 propertyTypeMatch &&
                 bathRoomsMatch &&
                 bedRoomsMatch &&
-                priceMatch
+                priceMatch &&
+                locationMatch
             );
         });
 
@@ -95,11 +161,12 @@ const PropertySearch = () => {
         selectBathRooms,
         minPrice,
         maxPrice,
-        dataListProperty,
+        selectLocation,
     ]);
 
     useEffect(() => {
         localStorage.setItem('filteredData', JSON.stringify(filteredData));
+        navigate('/property', { state: { filteredData } });
     }, [filteredData]);
 
     const formatCurrency = (value) => {
@@ -115,26 +182,43 @@ const PropertySearch = () => {
         return str.replace(/\D/g, '');
     };
 
+    const handleInputSearchBar = (e) => {
+        const searcTerm = e.target.value.toLocaleLowerCase();
+        if (searcTerm.length > 0) {
+            // setSearchBar(searcTerm);
+
+            // const newFilteredData = dataListProperty.filter((data) => {
+            //     // return Object.values(data.city).some((value) =>
+            //     //     value.toString().toLocaleLowerCase().includes(searcTerm)
+            //     // );
+            //     return data.city.toLocaleLowerCase().includes(searcTerm);
+            // });
+            setSelectLocation(searcTerm);
+            // buat set localStorage dataFilter value location jadi kosong
+            dataFilter[0].location = '';
+            localStorage.setItem('dataFilter', JSON.stringify(dataFilter));
+        } else {
+            setSelectLocation('');
+        }
+    };
+
     const handleRangeClick = (range) => {
-        if (selectPriceRange === range.label) {
-            setSelectPriceRange(null);
+        // if (selectPriceRange === range.label) {
+        if (minPrice === range.min && maxPrice === range.max) {
             setMinPrice('');
             setMaxPrice('');
             return;
         }
-        setSelectPriceRange(range.label);
         setMinPrice(range.min ? range.min : '');
         setMaxPrice(range.max ? range.max : '');
     };
 
     const handleMinChange = (e) => {
         setMinPrice(e.target.value);
-        setSelectPriceRange('');
     };
 
     const handleMaxChange = (e) => {
         setMaxPrice(e.target.value);
-        setSelectPriceRange('');
     };
 
     const uniquePropertyTypes = [
@@ -148,14 +232,14 @@ const PropertySearch = () => {
         setSelectPropertyType(type);
     };
 
-    const handleRoomsChange = (key, value) => {
-        console.log(key, value);
-        if (selectRooms[key] === value) {
-            setSelectRooms((prev) => ({ ...prev, [key]: null }));
-            return;
-        }
-        setSelectRooms((prev) => ({ ...prev, [key]: value }));
-    };
+    // const handleRoomsChange = (key, value) => {
+    //     console.log(key, value);
+    //     if (selectRooms[key] === value) {
+    //         setSelectRooms((prev) => ({ ...prev, [key]: null }));
+    //         return;
+    //     }
+    //     setSelectRooms((prev) => ({ ...prev, [key]: value }));
+    // };
 
     const handleBedRoomsChange = (value) => {
         if (selectBedRooms === value) {
@@ -174,9 +258,10 @@ const PropertySearch = () => {
     };
 
     const handleClearFilter = () => {
-        setSelectPriceRange('');
         setSelectPropertyType('');
-        setSelectRooms({ bedroom: null, bathroom: null });
+        // setSelectRooms({ bedroom: null, bathroom: null });
+        setSelectBedRooms(null);
+        setSelectBathRooms(null);
         setMinPrice('');
         setMaxPrice('');
     };
@@ -192,8 +277,9 @@ const PropertySearch = () => {
                     <div className="relative md:w-[450px]">
                         <Input
                             type="text"
-                            placeholder="Search Property . . ."
+                            placeholder="Search city . . ."
                             className="w-full h-12 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus:!border-0"
+                            onChange={handleInputSearchBar}
                         />
 
                         <Button
@@ -276,8 +362,9 @@ const PropertySearch = () => {
                                                     }
                                                     variant="outline"
                                                     className={`${
-                                                        selectPriceRange ===
-                                                        range.label
+                                                        minPrice ===
+                                                            range.min &&
+                                                        maxPrice === range.max
                                                             ? 'border-green-600 bg-green-400/50'
                                                             : ''
                                                     } flex gap-2`}
@@ -326,7 +413,7 @@ const PropertySearch = () => {
                                             bedroom
                                         </h3>
                                         <div className="flex flex-wrap gap-4">
-                                            {dataRooms.map((item, index) => (
+                                            {dataBedRooms.map((item, index) => (
                                                 <Button
                                                     key={index}
                                                     onClick={() =>
