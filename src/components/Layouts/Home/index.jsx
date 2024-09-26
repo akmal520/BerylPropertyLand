@@ -6,6 +6,7 @@ const HomeLayout = () => {
         <>
             <Navbar />
             <Hero />
+            {/* bedeh */}
         </>
     );
 };

@@ -14,17 +14,28 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { dataListProperty } from '@/data/datas';
 import { Filter, Search } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PropertySearch = () => {
-    const [selectPriceRange, setSelectPriceRange] = useState(null);
-    const [selectPropertyType, setSelectPropertyType] = useState(null);
+    const [selectPriceRange, setSelectPriceRange] = useState('');
+    const [selectPropertyType, setSelectPropertyType] = useState('');
     const [selectRooms, setSelectRooms] = useState({
         bedroom: null,
         bathroom: null,
     });
+    const [selectBedRooms, setSelectBedRooms] = useState(null);
+    const [selectBathRooms, setSelectBathRooms] = useState(null);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+
+    const [filteredData, setFilteredData] = useState([]);
+
+    // console.log(selectRooms.bathroom);
+    // console.log(selectRooms.bedroom);
+    // console.log(minPrice);
+    // console.log(maxPrice);
+    // console.log(selectPropertyType);
+    // console.log(selectPriceRange);
 
     const ranges = [
         { label: '< Rp 1 M', min: '', max: '1000000000' },
@@ -41,6 +52,55 @@ const PropertySearch = () => {
         { label: '4', value: 4 },
         { label: '5+', value: 5 },
     ];
+
+    useEffect(() => {
+        const newFilteredData = dataListProperty.filter((data) => {
+            // (selectPropertyType === '' ||
+            //     data.propertyType === selectPropertyType) &&
+            // (selectRooms.bathroom === null ||
+            //     data.bathroom === selectRooms.bathroom) &&
+            // (selectRooms.bedroom === null ||
+            //     data.bedroom === selectRooms.bedroom ||
+            //     data.bedroom >= 5) &&
+            // data.price >= minPrice &&
+            // data.price <= maxPrice
+            const propertyTypeMatch =
+                selectPropertyType === '' ||
+                data.propertyType === selectPropertyType;
+            const bathRoomsMatch =
+                selectBathRooms === null ||
+                data.bathroom === selectBathRooms ||
+                data.bathroom >= 5;
+            const bedRoomsMatch =
+                selectBedRooms === null ||
+                data.bedroom === selectBedRooms ||
+                data.bedroom >= 5;
+            const minPriceMatch =
+                minPrice === '' || data.price >= parseCurrency(minPrice);
+            const maxPriceMatch =
+                maxPrice === '' || data.price <= parseCurrency(maxPrice);
+            const priceMatch = minPriceMatch && maxPriceMatch;
+            return (
+                propertyTypeMatch &&
+                bathRoomsMatch &&
+                bedRoomsMatch &&
+                priceMatch
+            );
+        });
+
+        setFilteredData(newFilteredData);
+    }, [
+        selectPropertyType,
+        selectBedRooms,
+        selectBathRooms,
+        minPrice,
+        maxPrice,
+        dataListProperty,
+    ]);
+
+    useEffect(() => {
+        localStorage.setItem('filteredData', JSON.stringify(filteredData));
+    }, [filteredData]);
 
     const formatCurrency = (value) => {
         if (!value) return '';
@@ -82,13 +142,14 @@ const PropertySearch = () => {
     ];
     const handlePropertyTypeChange = (type) => {
         if (selectPropertyType === type) {
-            setSelectPropertyType(null);
+            setSelectPropertyType('');
             return;
         }
         setSelectPropertyType(type);
     };
 
     const handleRoomsChange = (key, value) => {
+        console.log(key, value);
         if (selectRooms[key] === value) {
             setSelectRooms((prev) => ({ ...prev, [key]: null }));
             return;
@@ -96,9 +157,25 @@ const PropertySearch = () => {
         setSelectRooms((prev) => ({ ...prev, [key]: value }));
     };
 
+    const handleBedRoomsChange = (value) => {
+        if (selectBedRooms === value) {
+            setSelectBedRooms(null);
+            return;
+        }
+        setSelectBedRooms(value);
+    };
+
+    const handleBathRoomsChange = (value) => {
+        if (selectBathRooms === value) {
+            setSelectBathRooms(null);
+            return;
+        }
+        setSelectBathRooms(value);
+    };
+
     const handleClearFilter = () => {
-        setSelectPriceRange(null);
-        setSelectPropertyType(null);
+        setSelectPriceRange('');
+        setSelectPropertyType('');
         setSelectRooms({ bedroom: null, bathroom: null });
         setMinPrice('');
         setMaxPrice('');
@@ -233,7 +310,7 @@ const PropertySearch = () => {
                                                             type
                                                                 ? 'border-green-600 bg-green-400/50'
                                                                 : ''
-                                                        } flex gap-2`}
+                                                        } flex gap-2 capitalize`}
                                                     >
                                                         {type}
                                                     </Button>
@@ -253,14 +330,13 @@ const PropertySearch = () => {
                                                 <Button
                                                     key={index}
                                                     onClick={() =>
-                                                        handleRoomsChange(
-                                                            'bedroom',
+                                                        handleBedRoomsChange(
                                                             item.value
                                                         )
                                                     }
                                                     variant="outline"
                                                     className={`${
-                                                        selectRooms.bedroom ===
+                                                        selectBedRooms ===
                                                         item.value
                                                             ? 'border-green-600 bg-green-400/50'
                                                             : ''
@@ -283,14 +359,13 @@ const PropertySearch = () => {
                                                 <Button
                                                     key={index}
                                                     onClick={() =>
-                                                        handleRoomsChange(
-                                                            'bathroom',
+                                                        handleBathRoomsChange(
                                                             item.value
                                                         )
                                                     }
                                                     variant="outline"
                                                     className={`${
-                                                        selectRooms.bathroom ===
+                                                        selectBathRooms ===
                                                         item.value
                                                             ? 'border-green-600 bg-green-400/50'
                                                             : ''

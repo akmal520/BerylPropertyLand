@@ -40,11 +40,13 @@ const PropertyCard = () => {
     return (
         <section className="container mx-auto">
             <div className="py-6">
-                <h1 className="text-2xl md:text-3xl font-semibold mb-4">
+                <h1 className="text-2xl md:text-3xl font-semibold mb-2">
                     Property Results
                 </h1>
 
-                <Separator className="mb-6" />
+                <span>{filteredData.length} properties found</span>
+
+                <Separator className="mb-6 mt-2" />
 
                 {filteredData.length > 0 ? (
                     <div className="flex flex-wrap items-center gap-6 md:gap-6">
