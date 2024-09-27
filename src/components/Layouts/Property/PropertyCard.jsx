@@ -1,4 +1,3 @@
-import Apartment from '../../../assets/apartment.jpg';
 import {
     Card,
     CardContent,
@@ -10,6 +9,7 @@ import { BathIcon, BedSingleIcon, HouseIcon, LandPlotIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { FiPhone } from 'react-icons/fi';
+import { TfiFaceSad } from 'react-icons/tfi';
 import { Link, useLocation } from 'react-router-dom';
 
 const PropertyCard = () => {
@@ -40,19 +40,25 @@ const PropertyCard = () => {
     return (
         <section className="container mx-auto">
             <div className="py-6">
-                <h1 className="text-2xl md:text-3xl font-semibold mb-2">
+                <h1 className="text-2xl md:text-3xl font-semibold mb-2 select-none text-head">
                     Property Results
                 </h1>
 
-                <span>{filteredData.length} properties found</span>
+                <span
+                    className={`${
+                        filteredData.length > 0 ? '' : 'text-slate-500'
+                    } capitalize select-none`}
+                >
+                    {filteredData.length} properties found
+                </span>
 
-                <Separator className="mb-6 mt-2" />
+                <Separator className="mb-6 mt-2 bg-sub_head" />
 
                 {filteredData.length > 0 ? (
                     <div className="flex flex-wrap items-center gap-6 md:gap-6">
                         {filteredData.map((item) => (
                             <Card
-                                className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden border-gray-400"
+                                className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden border-gray-400 group"
                                 key={item.id}
                             >
                                 <Link to={`/property/detail/${item.id}`}>
@@ -60,7 +66,7 @@ const PropertyCard = () => {
                                         <img
                                             src={item.imgProperty}
                                             alt="property"
-                                            className="rounded-lg"
+                                            className="rounded-lg "
                                         />
                                     </CardHeader>
                                     <CardContent className="p-2 flex flex-col">
@@ -149,36 +155,11 @@ const PropertyCard = () => {
                         ))}
                     </div>
                 ) : (
-                    <p>No properties found</p>
+                    <p className="text-3xl font-medium text-sub_head flex gap-2 justify-center select-none">
+                        No properties found <TfiFaceSad className="w-8 h-8" />
+                    </p>
                 )}
             </div>
-
-            {/* <h1 className="text-2xl font-semibold mb-4">Property Results</h1> */}
-            {/* {filteredData.length > 0 ? (
-                <ul className="space-y-2">
-                    {filteredData.map((item) => (
-                        <li
-                            key={item.id}
-                            className="border p-4 rounded-lg shadow-sm"
-                        >
-                            <p>City: {item.city}</p>
-                            <p>Property Type: {item.propertyType}</p>
-                            <p>Sell Type: {item.sellType}</p>
-                            <p>Bedroom: {item.bedroom}</p>
-                            <p>Bathroom: {item.bathroom}</p>
-                            <p>
-                                LT: {item.lt} m<sup>2</sup>
-                            </p>
-                            <p>
-                                LB: {item.lb} m<sup>2</sup>
-                            </p>
-                            <p>Price: ${item.price.toLocaleString()}</p>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No properties found</p>
-            )} */}
         </section>
     );
 };

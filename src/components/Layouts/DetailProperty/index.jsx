@@ -1,3 +1,4 @@
+import Navbar from '../Navbar/Navbar';
 import { dataListProperty } from '@/data/datas';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ const DetailLayout = () => {
     const data = dataListProperty.find((data) => data.id == id);
     return (
         <div>
+            <Navbar />
             <div>
                 DETAIL PROPERTY {id} {data.city}
             </div>

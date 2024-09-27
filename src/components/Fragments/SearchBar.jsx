@@ -99,7 +99,7 @@ const SearchBar = () => {
                         Location
                     </label>
                     <select
-                        className="w-full md:w-auto bg-transparent text-gray-500 outline-none focus:text-gray-900"
+                        className="w-full md:w-auto bg-transparent text-gray-500 outline-none focus:text-gray-900 capitalize"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                     >
@@ -127,7 +127,7 @@ const SearchBar = () => {
                         Property Type
                     </label>
                     <select
-                        className="w-full md:w-auto bg-transparent text-gray-500 outline-none focus:text-gray-900"
+                        className="w-full md:w-auto bg-transparent text-gray-500 outline-none focus:text-gray-900 capitalize"
                         value={propertyType}
                         onChange={(e) => setPropertyType(e.target.value)}
                     >
