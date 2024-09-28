@@ -207,8 +207,17 @@ const PropertySearch = () => {
         // setSelectRooms({ bedroom: null, bathroom: null });
         setSelectBedRooms(null);
         setSelectBathRooms(null);
+        setSelectLocation('');
         setMinPrice('');
         setMaxPrice('');
+        localStorage.setItem(
+            'dataFilter',
+            JSON.stringify({
+                location: '',
+                propertyType: '',
+                priceRange: '',
+            })
+        );
     };
 
     return (
@@ -222,7 +231,7 @@ const PropertySearch = () => {
                     <div className="relative md:w-[450px]">
                         <Input
                             type="text"
-                            placeholder="Search city . . ."
+                            placeholder="Cari kota . . ."
                             className="w-full h-12 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus:!border-0"
                             onChange={handleInputSearchBar}
                         />
@@ -260,7 +269,7 @@ const PropertySearch = () => {
                                 <div className="overflow-y-auto">
                                     <div className="flex flex-col gap-4">
                                         <h3 className="text-base font-medium  capitalize">
-                                            property prices
+                                            harga properti
                                         </h3>
 
                                         <div className="flex gap-4">
@@ -324,7 +333,7 @@ const PropertySearch = () => {
 
                                     <div className="flex flex-col gap-4">
                                         <h3 className="text-base font-medium  capitalize">
-                                            property type
+                                            tipe properti
                                         </h3>
                                         <div className="flex flex-wrap gap-4">
                                             {uniquePropertyTypes.map(
@@ -355,7 +364,7 @@ const PropertySearch = () => {
 
                                     <div className="flex flex-col gap-4">
                                         <h3 className="text-base font-medium  capitalize">
-                                            bedroom
+                                            kamar tidur
                                         </h3>
                                         <div className="flex flex-wrap gap-4">
                                             {dataRooms.map((item, index) => (
@@ -384,7 +393,7 @@ const PropertySearch = () => {
 
                                     <div className="flex flex-col gap-4">
                                         <h3 className="text-base font-medium  capitalize">
-                                            bathroom
+                                            kamar mandi
                                         </h3>
                                         <div className="flex flex-wrap gap-4">
                                             {dataRooms.map((item, index) => (
@@ -410,13 +419,23 @@ const PropertySearch = () => {
                                     </div>
                                 </div>
 
-                                <DialogFooter className="border-t pt-4 flex flex-row gap-4">
+                                <DialogFooter className="border-t pt-4 flex flex-row gap-4 select-none">
                                     <Button
                                         variant="outline"
                                         className=""
                                         onClick={() => handleClearFilter()}
+                                        disabled={
+                                            !selectPropertyType &&
+                                            !selectLocation &&
+                                            !selectBedRooms &&
+                                            !selectBathRooms &&
+                                            !minPrice &&
+                                            !maxPrice
+                                                ? true
+                                                : false
+                                        }
                                     >
-                                        Clear
+                                        Reset
                                     </Button>
                                     <DialogClose asChild>
                                         <Button variant="default" className="">

@@ -1,5 +1,8 @@
 import Navbar from '../Navbar/Navbar';
 import Hero from './Hero';
+import LayananKami from './LayananKami';
+import PropertyKota from './PropertyKota';
+import PropertyType from './PropertyType';
 import React from 'react';
 
 const HomeLayout = () => {
@@ -7,7 +10,9 @@ const HomeLayout = () => {
         <>
             <Navbar />
             <Hero />
-            {/* bedeh */}
+            <PropertyKota />
+            <PropertyType />
+            <LayananKami />
         </>
     );
 };

@@ -56,7 +56,7 @@ const PropertyCard = () => {
                 <Separator className="mb-6 mt-2 bg-sub_head" />
 
                 {filteredData.length > 0 ? (
-                    <div className="flex flex-wrap items-center gap-6 md:gap-6">
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 md:gap-6">
                         {filteredData.map((item) => (
                             <Card
                                 className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden border-gray-400 group"
@@ -67,7 +67,7 @@ const PropertyCard = () => {
                                         <img
                                             src={item.imgProperty}
                                             alt="property"
-                                            className="rounded-lg "
+                                            className="rounded-lg aspect-[5/3] object-cover object-center"
                                         />
                                     </CardHeader>
                                     <CardContent className="p-2 flex flex-col">
