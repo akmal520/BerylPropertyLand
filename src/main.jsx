@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
+import DetailLayout from './components/Layouts/DetailProperty';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     {
         path: '/property',
         element: <PropertyPage />,
+    },
+    {
+        path: '/property/detail/:id',
+        element: <DetailLayout />,
     },
 ]);
 

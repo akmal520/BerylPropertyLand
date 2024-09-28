@@ -1,5 +1,6 @@
 import AvaFemale from '../assets/female.jpg';
 import AvaMale from '../assets/male.jpg';
+import { v4 as uuid } from 'uuid';
 
 export const dataNavigation = [
     {
@@ -20,11 +21,29 @@ export const dataNavigation = [
     },
 ];
 
+export const dataRooms = [
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5+', value: 5 },
+];
+
+export const dataRangesPrice = [
+    { label: '< Rp 1 M', min: '', max: '1000000000' },
+    { label: 'Rp 1 M - Rp 2 M', min: '1000000000', max: '2000000000' },
+    { label: 'Rp 2 M - Rp 3 M', min: '2000000000', max: '3000000000' },
+    { label: 'Rp 3 M - Rp 5 M', min: '3000000000', max: '5000000000' },
+    { label: '> Rp 5 M', min: '5000000000', max: '' },
+];
+
 export const dataListProperty = [
     {
         id: 1,
+        uuid: uuid(),
         city: 'jakarta',
         propertyType: 'apartment',
+        imgProperty: './src/assets/apartment.jpg',
         price: 1000000000,
         status: 'Available',
         sellType: 'Buy',
@@ -40,8 +59,10 @@ export const dataListProperty = [
     },
     {
         id: 2,
+        uuid: uuid(),
         city: 'jakarta',
         propertyType: 'residential',
+        imgProperty: './src/assets/apartment.jpg',
         price: 2000000000,
         status: 'Available',
         sellType: 'Rent',
@@ -57,8 +78,10 @@ export const dataListProperty = [
     },
     {
         id: 3,
+        uuid: uuid(),
         city: 'bandung',
         propertyType: 'apartment',
+        imgProperty: './src/assets/apartment.jpg',
         price: 3000000000,
         status: 'Available',
         sellType: 'Buy',
@@ -74,15 +97,36 @@ export const dataListProperty = [
     },
     {
         id: 4,
+        uuid: uuid(),
         city: 'bogor',
         propertyType: 'ruko',
+        imgProperty: './src/assets/apartment.jpg',
         price: 900000000,
         status: 'Available',
         sellType: 'Buy',
         lt: 98,
         lb: 86,
         bedroom: 6,
-        bathroom: 4,
+        bathroom: 6,
+        address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
+        developer: 'daniel punten',
+        bachelor_degree: 'marketing associate',
+        img: AvaMale,
+        number: '081234567890',
+    },
+    {
+        id: 5,
+        uuid: uuid(),
+        city: 'bogor',
+        propertyType: 'residential',
+        imgProperty: './src/assets/apartment.jpg',
+        price: 4350000000,
+        status: 'Available',
+        sellType: 'Buy',
+        lt: 98,
+        lb: 86,
+        bedroom: 6,
+        bathroom: 6,
         address: 'Jakarta Garden City Jakarta Timur, JAKARTA',
         developer: 'daniel punten',
         bachelor_degree: 'marketing associate',
