@@ -1,5 +1,6 @@
 import AvaFemale from '../assets/female.jpg';
 import AvaMale from '../assets/male.jpg';
+import { v4 as uuid } from 'uuid';
 
 export const dataNavigation = [
     {
@@ -39,6 +40,7 @@ export const dataRangesPrice = [
 export const dataListProperty = [
     {
         id: 1,
+        uuid: uuid(),
         city: 'jakarta',
         propertyType: 'apartment',
         imgProperty: './src/assets/apartment.jpg',
@@ -57,6 +59,7 @@ export const dataListProperty = [
     },
     {
         id: 2,
+        uuid: uuid(),
         city: 'jakarta',
         propertyType: 'residential',
         imgProperty: './src/assets/apartment.jpg',
@@ -75,6 +78,7 @@ export const dataListProperty = [
     },
     {
         id: 3,
+        uuid: uuid(),
         city: 'bandung',
         propertyType: 'apartment',
         imgProperty: './src/assets/apartment.jpg',
@@ -93,6 +97,7 @@ export const dataListProperty = [
     },
     {
         id: 4,
+        uuid: uuid(),
         city: 'bogor',
         propertyType: 'ruko',
         imgProperty: './src/assets/apartment.jpg',
@@ -111,6 +116,7 @@ export const dataListProperty = [
     },
     {
         id: 5,
+        uuid: uuid(),
         city: 'bogor',
         propertyType: 'residential',
         imgProperty: './src/assets/apartment.jpg',

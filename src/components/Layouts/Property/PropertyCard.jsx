@@ -5,6 +5,7 @@ import {
     CardHeader,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { dataListProperty } from '@/data/datas';
 import { BathIcon, BedSingleIcon, HouseIcon, LandPlotIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -61,7 +62,7 @@ const PropertyCard = () => {
                                 className="max-w-[350px] md:max-w-[350px] hover:scale-105 hover:shadow-lg transition-all duration-300 overflow-hidden border-gray-400 group"
                                 key={item.id}
                             >
-                                <Link to={`/property/detail/${item.id}`}>
+                                <Link to={`/property/detail/${item.uuid}`}>
                                     <CardHeader className="p-2">
                                         <img
                                             src={item.imgProperty}
