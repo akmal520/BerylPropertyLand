@@ -1,17 +1,18 @@
 import Navbar from '../Navbar/Navbar';
 import Hero from './Hero';
-import React from 'react';
-import PropertyType from './PropertyType';
 import LayananKami from './LayananKami';
-
+import PropertyKota from './PropertyKota';
+import PropertyType from './PropertyType';
+import React from 'react';
 
 const HomeLayout = () => {
     return (
         <>
             <Navbar />
             <Hero />
-            <PropertyType/>
-            <LayananKami/>
+            <PropertyKota />
+            <PropertyType />
+            <LayananKami />
         </>
     );
 };

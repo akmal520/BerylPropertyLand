@@ -6,7 +6,7 @@ const Hero = () => {
     return (
         <section
             id="home"
-            className="h-screen w-full px-4 bg-hero bg-cover bg-center overflow-hidden relative lg:rounded-[50px] rounded-3xl container mx-auto shadow-md"
+            className="h-screen w-full px-4 bg-hero bg-cover bg-center overflow-hidden relative lg:rounded-[50px] rounded-3xl container mx-auto shadow-sm"
         >
             {/* <div className="absolute w-full h-full bg-black opacity-50"></div> */}
             <div className="flex flex-col justify-center items-center text-center lg:px-20 lg:text-left lg:items-start h-full lg:gap-4 gap-6">
