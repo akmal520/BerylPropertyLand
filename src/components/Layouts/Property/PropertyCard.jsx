@@ -5,7 +5,6 @@ import {
     CardHeader,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { dataListProperty } from '@/data/datas';
 import { BathIcon, BedSingleIcon, HouseIcon, LandPlotIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -75,8 +74,8 @@ const PropertyCard = () => {
                                             {item.city} - {item.propertyType}
                                         </h3>
 
-                                        <div className="flex flex-col gap-4">
-                                            <p className="text-base md:text-sm font-medium text-sub_head">
+                                        <div className="flex flex-col flex-grow gap-4">
+                                            <p className="text-base md:text-sm font-medium text-sub_head truncate">
                                                 {item.address}
                                             </p>
 
@@ -99,13 +98,13 @@ const PropertyCard = () => {
                                                 </span>
                                             </div>
 
-                                            <p className="text-3xl md:text-2xl text-head font-semibold">
+                                            <p className="text-3xl md:text-2xl text-head font-semibold mt-auto">
                                                 {formatCurrency(item.price)}
                                             </p>
                                         </div>
                                     </CardContent>
                                 </Link>
-                                <CardFooter className="p-2 mb-4">
+                                <CardFooter className="p-2 mt-auto">
                                     <div className="flex justify-center items-center w-full gap-4">
                                         <img
                                             src={item.img}

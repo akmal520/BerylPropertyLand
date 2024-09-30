@@ -1,40 +1,54 @@
-import React from 'react';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/ui/accordion"
+} from '@/components/ui/accordion';
+import React from 'react';
 
 const MengapaMemilihKami = () => {
+    const why_us = [
+        {
+            id: 1,
+            title: 'Jaringan Luas',
+            description:
+                'Kami memiliki akses ke berbagai pilihan properti, mulai dari rumah, apartemen, hingga properti komersial di lokasi strategis.',
+        },
+        {
+            id: 2,
+            title: 'Pendekatan Digital Terdepan',
+            description:
+                'Menggunakan teknologi digital terkini, kami memasarkan properti Anda kepada audiens yang tepat, menjangkau lebih banyak calon pembeli.',
+        },
+        {
+            id: 3,
+            title: 'Pelayanan Profesional',
+            description:
+                'Kami berkomitmen memberikan pelayanan terbaik, dari tahap pencarian hingga transaksi selesai.',
+        },
+        {
+            id: 4,
+            title: 'Transparan & Terpercaya',
+            description:
+                'Kepercayaan Anda adalah prioritas kami. Semua proses dilakukan dengan transparan dan jujur.',
+        },
+    ];
     return (
-        <section className="container mx-auto py-8 bg-gray-400">
-            <h2 className="text-center text-2xl font-bold mb-4">Mengapa Memilih Kami?</h2>
-            <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-center">Jaringan Luas</AccordionTrigger>
-                    <AccordionContent>
-                    Kami memiliki akses ke berbagai pilihan properti, mulai dari rumah, apartemen, hingga properti komersial di lokasi strategis.
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                    <AccordionTrigger className="text-center">Pendekatan Digital Terdepan</AccordionTrigger>
-                    <AccordionContent>
-                    Menggunakan teknologi digital terkini, kami memasarkan properti Anda kepada audiens yang tepat, menjangkau lebih banyak calon pembeli.
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                    <AccordionTrigger className="text-center">Pelayanan Profesional</AccordionTrigger>
-                    <AccordionContent>
-                    Kami berkomitmen memberikan pelayanan terbaik, dari tahap pencarian hingga transaksi selesai.
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-4">
-                    <AccordionTrigger className="text-center">Transparan & Terpercaya</AccordionTrigger>
-                    <AccordionContent>
-                    Kepercayaan Anda adalah prioritas kami. Semua proses dilakukan dengan transparan dan jujur.
-                    </AccordionContent>
-                </AccordionItem>
+        <section className="container mx-auto py-8 mt-8">
+            <h2 className="text-center text-3xl md:text-4xl font-bold mb-8">
+                Mengapa Memilih Kami?
+            </h2>
+            <Accordion type="single" className="w-10/12 mx-auto" collapsible>
+                {why_us.map((item) => (
+                    <AccordionItem value={item.id} key={item.id}>
+                        <AccordionTrigger className="text-center text-xl text-head">
+                            {item.title}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-lg text-sub_head">
+                            {item.description}
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
             </Accordion>
         </section>
     );

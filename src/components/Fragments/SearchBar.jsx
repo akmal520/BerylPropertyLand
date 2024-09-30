@@ -1,5 +1,6 @@
-import { dataListProperty, dataRangesPrice as ranges } from '@/data/datas';
-import React, { useState } from 'react';
+import { dataRangesPrice as ranges } from '@/data/datas';
+import { ListProperty } from '@/data/listPropeti';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
@@ -13,13 +14,11 @@ const SearchBar = () => {
     // console.log(priceRange);
 
     // filter kota  yang sama
-    const uniqueCities = [
-        ...new Set(dataListProperty.map((item) => item.city)),
-    ];
+    const uniqueCities = [...new Set(ListProperty.map((item) => item.city))];
 
     // filter tipe properti yang sama
     const uniquePropertyTypes = [
-        ...new Set(dataListProperty.map((item) => item.propertyType)),
+        ...new Set(ListProperty.map((item) => item.propertyType)),
     ];
 
     const handleSearch = () => {
@@ -31,7 +30,7 @@ const SearchBar = () => {
             : [0, Infinity];
 
         // Filter data berdasarkan input pengguna
-        const filteredData = dataListProperty.filter(
+        const filteredData = ListProperty.filter(
             (item) =>
                 (location === '' || item.city === location) &&
                 (propertyType === '' || item.propertyType === propertyType) &&
