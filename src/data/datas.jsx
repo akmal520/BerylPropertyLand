@@ -1,6 +1,8 @@
+import { Description, Title } from '@radix-ui/react-dialog';
 import AvaFemale from '../assets/female.jpg';
 import AvaMale from '../assets/male.jpg';
 import { v4 as uuid } from 'uuid';
+import { CardDescription } from '@/components/ui/card';
 
 export const dataNavigation = [
     {
@@ -178,4 +180,27 @@ export const dataListProperty = [
         number: '081234567890',
         dateAdded: '2024-09-28',
     },
+];
+
+export const dataLayanan = [
+ {
+    id: 1,
+    title: "Pemasaran Properi Secara Digital",
+    description: "Kami membantu anda memasarkan properti melalui berbagai platfrom digital, termasuk media sosial, situs web prpoerti, dan iklan berbayar, sehingga properti anda dapat dilihat oleh lebih banyak calon pembeli",
+ },
+ {
+    id: 2,
+    title: "Strategi Konten yang Tepat",
+    description: "Kami membuat konten visual dan teks yang menarik, termasuk foto profesional, video tur properti, dan copywriting yang mampu meningkatkan minat calon pembeli",
+ },
+ {
+    id: 3,
+    title: "Analisis Pasar Properti",
+    description: "Tim kami menyediakan laporan dan analisis pasar properti untuk memastikan strategi pemasaran yang tepat dan sesuai dengan tren saat ini.",
+ },
+ {
+    id: 4,
+    title: "Konsultasi Properti",
+    description: "Kami memberikan konsultasi terkait penjualan, pembelian, dan investasi properti, membantu Anda membuat keputusan yang cerdas.",
+ },
 ];

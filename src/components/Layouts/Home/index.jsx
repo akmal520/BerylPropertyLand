@@ -3,6 +3,7 @@ import Hero from './Hero';
 import LayananKami from './LayananKami';
 import PropertyKota from './PropertyKota';
 import PropertyType from './PropertyType';
+import MengapaMemilihKami from './MengapaMemilihKami';
 import React from 'react';
 
 const HomeLayout = () => {
@@ -13,6 +14,7 @@ const HomeLayout = () => {
             <PropertyKota />
             <PropertyType />
             <LayananKami />
+            <MengapaMemilihKami/>
         </>
     );
 };
