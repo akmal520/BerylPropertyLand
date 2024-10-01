@@ -5,6 +5,7 @@ import LayananKami from './LayananKami';
 import MengapaMemilihKami from './MengapaMemilihKami';
 import PropertyKota from './PropertyKota';
 import PropertyType from './PropertyType';
+import MengapaMemilihKami from './MengapaMemilihKami';
 import React from 'react';
 
 const HomeLayout = () => {
@@ -15,8 +16,7 @@ const HomeLayout = () => {
             <PropertyKota />
             <PropertyType />
             <LayananKami />
-            <MengapaMemilihKami />
-            <Footer />
+            <MengapaMemilihKami/>
         </>
     );
 };
