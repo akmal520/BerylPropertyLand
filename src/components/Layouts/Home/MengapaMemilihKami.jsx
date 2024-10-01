@@ -8,7 +8,7 @@ import {
 
 const MengapaMemilihKami = () => {
     return (
-        <section className="container mx-auto py-8 bg-gray-400">
+        <section className="container mx-auto py-8">
             <h2 className="text-center text-2xl font-bold mb-4">Mengapa Memilih Kami?</h2>
             <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">

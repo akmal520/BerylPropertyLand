@@ -13,7 +13,7 @@ const LayananKami = () => {
     }, [latestLayanan]);
 
     return (
-        <section className="container mx-auto py-8 bg-gray-400"> 
+        <section className="container mx-auto py-8"> 
             <h1 className="text-4xl font-bold text-center py-4 text-gray-800">Layanan Kami</h1>
 
             <div className={`grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-6 transition-opacity duration-500 ${fade ? 'fade-in' : 'opacity-0'}`}>
