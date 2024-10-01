@@ -5,6 +5,7 @@ import DetailLayout from './components/Layouts/DetailProperty';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import AboutLayout from './components/About';
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: '/property/detail/:id',
         element: <DetailLayout />,
+    },
+    {
+        path: '/about',
+        element: <AboutLayout/>
     },
 ]);
 
