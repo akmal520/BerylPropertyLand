@@ -12,11 +12,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import {
-    dataListProperty,
-    dataRooms,
-    dataRangesPrice as ranges,
-} from '@/data/datas';
+import { dataRooms, dataRangesPrice as ranges } from '@/data/datas';
+import { ListProperty } from '@/data/listPropeti';
 import { Filter, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -59,13 +56,13 @@ const PropertySearch = () => {
                     .map((price) => parseInt(price.replace(/\D/g, ''), 10));
 
                 setMinPrice(minPrice ? minPrice.toString() : '');
-                setMaxPrice(maxPrice.toString());
+                setMaxPrice(maxPrice ? maxPrice.toString() : '');
             }
         }
     }, []);
 
     useEffect(() => {
-        const newFilteredData = dataListProperty.filter((data) => {
+        const newFilteredData = ListProperty.filter((data) => {
             // const searchMatch =
             //     searchBar === '' ||
             //     data.includes(searchBar.toLocaleLowerCase());
@@ -167,7 +164,7 @@ const PropertySearch = () => {
     };
 
     const uniquePropertyTypes = [
-        ...new Set(dataListProperty.map((item) => item.propertyType)),
+        ...new Set(ListProperty.map((item) => item.propertyType)),
     ];
     const handlePropertyTypeChange = (type) => {
         if (selectPropertyType === type) {
