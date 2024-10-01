@@ -1,4 +1,5 @@
 import { dataListProperty } from '@/data/datas';
+import { ListProperty } from '@/data/listPropeti';
 import React, { useState } from 'react';
 import { GiModernCity } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
@@ -6,9 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const PropertyKota = () => {
     // const [location, setLocation] = useState('');
     const navigate = useNavigate();
-    const uniqueCities = [
-        ...new Set(dataListProperty.map((item) => item.city)),
-    ];
+    const uniqueCities = [...new Set(ListProperty.map((item) => item.city))];
 
     const sliceData =
         uniqueCities.length % 2 !== 0
@@ -29,9 +28,7 @@ const PropertyKota = () => {
 
         navigate('/property', {
             state: {
-                filteredData: dataListProperty.filter(
-                    (item) => item.city === city
-                ),
+                filteredData: ListProperty.filter((item) => item.city === city),
             },
         });
     };
@@ -74,7 +71,7 @@ const PropertyKota = () => {
     };
 
     const formattedAveragePricePerCity =
-        getFormattedAveragePricePerCity(dataListProperty);
+        getFormattedAveragePricePerCity(ListProperty);
 
     return (
         <section className="container mx-auto py-5">
@@ -86,7 +83,7 @@ const PropertyKota = () => {
                 {sliceData.map((city, index) => (
                     <div
                         key={index}
-                        className="flex flex-col md:flex-row items-center w-[150px] h-[150px] md:w-[500px] gap-4 justify-between border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-all duration-300"
+                        className="flex flex-col md:flex-row items-center w-[150px] min-h-[175px] md:w-[500px] gap-4 justify-between border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-all duration-300"
                         onClick={() => handelClickCity(city)}
                     >
                         <GiModernCity className="text-sub_head text-4xl md:text-6xl" />
