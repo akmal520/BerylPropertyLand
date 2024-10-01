@@ -13,7 +13,7 @@ const LayananKami = () => {
     // }, [latestLayanan]);
 
     return (
-        <section className="bg-gray-200">
+        <section className="bg-gray-200 mt-16">
             <div className="container mx-auto py-8 ">
                 <h1 className="text-4xl font-bold text-center py-4 text-gray-800">
                     Layanan Kami
