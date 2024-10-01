@@ -1,3 +1,4 @@
+import Footer from '../Footer';
 import Navbar from '../Navbar/Navbar';
 import PropertyCard from './PropertyCard';
 import PropertySearch from './PropertySearch';
@@ -7,10 +8,12 @@ const PropertyLayout = () => {
     return (
         <section>
             <Navbar />
-            <div>
-                <PropertySearch />
-                <PropertyCard />
-            </div>
+            {/* <div> */}
+            <PropertySearch />
+            <PropertyCard />
+            {/* </div> */}
+
+            <Footer />
         </section>
     );
 };
