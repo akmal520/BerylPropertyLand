@@ -1,13 +1,15 @@
+import AboutLayout from './components/About';
+import Login from './components/Layouts/Admin/Auth/Login';
+import DetailLayout from './components/Layouts/DetailProperty';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import AboutLayout from './components/About';
-import AddProperty from './components/Layouts/Admin/User/AddProperty';
-import DetailLayout from './components/Layouts/DetailProperty';
+import AddPropertyPage from './pages/Admin/AddPropertyPage';
 import AdminPages from './pages/Admin/AdminPages';
+import EditPropertyPage from './pages/Admin/EditPropertyPage';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
     {
@@ -32,7 +34,15 @@ const router = createBrowserRouter([
     },
     {
         path: '/admin/add-property',
-        element: <AddProperty />,
+        element: <AddPropertyPage />,
+    },
+    {
+        path: '/admin/edit-property/:uuid',
+        element: <EditPropertyPage />,
+    },
+    {
+        path: '/beryl/login',
+        element: <Login />,
     },
 ]);
 

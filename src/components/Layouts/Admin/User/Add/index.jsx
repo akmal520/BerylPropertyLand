@@ -1,11 +1,10 @@
-import TableAdmin from './TableAdmin';
+import AddProperty from './AddProperty';
 import { useAuthSession } from '@/hooks/CustomHook';
 import { LoaderCircle } from 'lucide-react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast, Toaster } from 'sonner';
 
-const DashboardLayout = () => {
+const AddPropertyLayout = () => {
     const { session, loading } = useAuthSession();
     const navigate = useNavigate();
 
@@ -14,7 +13,6 @@ const DashboardLayout = () => {
             navigate('/beryl/login');
         }
     }, [session, loading, navigate]);
-
     return (
         <>
             {loading ? (
@@ -23,12 +21,11 @@ const DashboardLayout = () => {
                 </div>
             ) : (
                 <div>
-                    <TableAdmin />
-                    <Toaster richColors />
+                    <AddProperty />
                 </div>
             )}
         </>
     );
 };
 
-export default DashboardLayout;
+export default AddPropertyLayout;

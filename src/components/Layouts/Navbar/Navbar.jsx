@@ -1,12 +1,15 @@
 import Logo1 from '../../../assets/Logo-1-removebg-preview.png';
 import Nav from './Nav';
 import NavMobile from './NavMobile';
+import { useAuthSession } from '@/hooks/CustomHook';
+import { LayoutDashboard } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [navFixed, setNavFixed] = useState(false);
+    const { session } = useAuthSession();
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
@@ -37,7 +40,7 @@ const Navbar = (props) => {
                 </div>
 
                 <div className="hidden lg:block">
-                    <div className="flex space-x-4">
+                    <div className="flex items-center space-x-4">
                         <Link
                             to="#instagram"
                             className="text-yellow-600 hover:text-yellow-700 transition-all duration-300"
@@ -58,6 +61,17 @@ const Navbar = (props) => {
                         >
                             <FaFacebook className="w-6 h-6" />
                         </Link>
+
+                        {session ? (
+                            <Link
+                                to="/admin"
+                                className="text-yellow-600 hover:bg-yellow-600 hover:text-white transition-all duration-300 border border-yellow-600 px-3 py-2 rounded-xl text-sm font-semibold"
+                            >
+                                Admin
+                            </Link>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
             </div>

@@ -10,4 +10,9 @@ export default defineConfig({
             '@': path.resolve(__dirname, './src'),
         },
     },
+    define: {
+        'import.meta.env.ENV_VARIABLE': JSON.stringify(
+            process.env.ENV_VARIABLE
+        ),
+    },
 });

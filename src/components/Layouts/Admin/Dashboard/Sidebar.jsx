@@ -1,12 +1,21 @@
 import logo from '../../../../assets/logo-1.png';
 import profile from '../../../../assets/male.jpg';
-import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react';
+import { Toast } from '@/components/ui/toast';
+import { ChevronFirst, ChevronLast, LogOut } from 'lucide-react';
 import { createContext, useContext, useState } from 'react';
 
 const SidebarContext = createContext();
 
-export default function Sidebar({ children }) {
+export default function Sidebar({ children, supabase, user }) {
     const [expanded, setExpanded] = useState(false);
+
+    const handleLogout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            Toast.error(error.message);
+        }
+        window.location.href = '/beryl/login';
+    };
     return (
         <>
             <aside className="h-screen">
@@ -38,12 +47,14 @@ export default function Sidebar({ children }) {
                             } `}
                         >
                             <div className="leading-4">
-                                <h4 className="font-semibold">constGenius</h4>
+                                <h4 className="font-semibold">Admin</h4>
                                 <span className="text-xs text-gray-600">
-                                    constgenius@gmail.com
+                                    {user}
                                 </span>
                             </div>
-                            <MoreVertical size={20} />
+                            <button onClick={handleLogout}>
+                                <LogOut size={20} />
+                            </button>
                         </div>
                     </div>
                 </nav>
