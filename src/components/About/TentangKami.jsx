@@ -3,12 +3,14 @@ import React from 'react';
 
 const TentangKami = () => {
     return (
-        <header className="container mx-auto bg-gray-100 gap-10">
-            <div className="flex justify-center">
+        <section className="container mx-auto p-6">
+            <div className="flex justify-center mb-4">
                 <img src={Logo1} alt="Logo" className="w-28 md:w-36" />
             </div>
-            <div className="mb-4">
-                <h2 className="text-center mb-2">
+            <div className="border-b-4 mb-4" /> 
+            <h1 className="text-center font-extrabold text-2xl">Beryl Property Land</h1>
+            <div>
+                <h2 className=" p-6 text-justify container mx-auto">
                     PT. Beryl Property Land adalah perusahaan digital marketing
                     properti yang berdedikasi untuk membantu penjual dan pembeli
                     properti mencapai tujuan mereka melalui strategi pemasaran
@@ -17,15 +19,20 @@ const TentangKami = () => {
                     properti, dan memberikan hasil terbaik bagi klien kami.
                 </h2>
             </div>
-            <div className="mt-6">
-                <h2 className="text-center gap-6">
+            <div>
+                <h2 className="text-justify p-6 container mx-auto">
                     Dengan tim profesional yang berpengalaman dalam bidang
                     properti dan pemasaran digital, kami siap mendukung
                     kebutuhan pemasaran properti Anda, baik untuk hunian,
                     komersial, maupun investasi.
                 </h2>
             </div>
-        </header>
+            {/* <div className='flex justify-center mt-6'> */}
+                {/* <button className='bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600'>
+                    Hubungi Kami
+                </button> */}
+            {/* </div> */}
+        </section>
     );
 };
 

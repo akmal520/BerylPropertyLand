@@ -2,14 +2,14 @@ import React from 'react';
 
 const VisiMisi = () => {
     return (
-        <section className="container mx-auto bg-gray-300">
-            <div className="text-center mb-8">
+        <section className=" bg-gray-200">
+            <div className="text-center mb-8 container mx-auto">
                 <h2 className="font-bold text-start text-5xl mb-4">Visi</h2>
-                <p className="text-lg text-start text-gray-500">Menjadi perusahaan digital marketing properti terdepan yang memberikan solusi inovatif dan terpercaya dalam membantu masyarakat menemukan dan memasarkan properti dengan cara yang efisien, modern, dan berbasis teknologi.</p>
+                <p className="text-lg text-start">Menjadi perusahaan digital marketing properti terdepan yang memberikan solusi inovatif dan terpercaya dalam membantu masyarakat menemukan dan memasarkan properti dengan cara yang efisien, modern, dan berbasis teknologi.</p>
             </div>
-            <div>
+            <div className='container mx-auto'>
                 <h2 className="font-bold text-start text-5xl mb-4">Misi</h2>
-                <ul className="list-disc list-inside text-lg text-start text-gray-500">
+                <ul className="list-disc list-inside text-lg text-start">
                     <li>Menyediakan layanan pemasaran properti yang profesional dan berbasis data untuk memastikan kepuasan pelanggan.</li>
                     <li>Menggunakan platform digital dan teknologi terkini untuk menjangkau pasar yang lebih luas dan efektif.</li>
                     <li>Menjalin hubungan yang kuat dan transparan dengan klien, mengedepankan integritas dan kejujuran.</li>
