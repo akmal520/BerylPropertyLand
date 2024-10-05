@@ -10,6 +10,7 @@ import AdminPages from './pages/Admin/AdminPages';
 import EditPropertyPage from './pages/Admin/EditPropertyPage';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
+import ContactUsLayout from './components/Layouts/Contact-Us';
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: '/about',
         element: <AboutLayout />,
+    },
+    {
+        path: '/contact-us',
+        element: <ContactUsLayout/>
     },
     {
         path: '/admin',
