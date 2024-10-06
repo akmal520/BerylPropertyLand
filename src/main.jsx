@@ -11,6 +11,9 @@ import EditPropertyPage from './pages/Admin/EditPropertyPage';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
 import ContactUsLayout from './components/Layouts/Contact-Us';
+import PrivacyPage from './pages/Admin/PrivacyPage';
+import TermsPage from './pages/Admin/TermsPage';
+import FaqPage from './pages/Admin/FaqPage';
 
 const router = createBrowserRouter([
     {
@@ -20,6 +23,18 @@ const router = createBrowserRouter([
     {
         path: '/property',
         element: <PropertyPage />,
+    },
+    {
+        path: '/privacy',
+        element: <PrivacyPage/>
+    },
+    {
+        path: '/terms',
+        element: <TermsPage/>
+    },
+    {
+        path: '/faq',
+        element: <FaqPage/>
     },
     {
         path: '/property/detail/:id',
