@@ -199,9 +199,7 @@ const TableAdmin = () => {
                                     >
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{data.developer}</TableCell>
-                                        <TableCell className="truncate w-2">
-                                            {data.title}
-                                        </TableCell>
+                                        <TableCell>{data.title}</TableCell>
                                         <TableCell>
                                             {data.property_type}
                                         </TableCell>

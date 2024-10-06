@@ -1,36 +1,49 @@
 import Navbar from '../Navbar/Navbar';
+import ImageCarousel from '@/components/Fragments/ImageCarousel';
+import { supabase } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const DetailLayout = () => {
-    const [filteredData, setFilteredData] = useState([]);
-    const { id } = useParams();
-
-    const data = filteredData.find((data) => data.uuid == id);
+    const { id: uuid } = useParams();
+    const [property, setProperty] = useState([]);
+    // const [id, setId] = useState(null);
+    const [imageProperties, setImageProperties] = useState([]);
 
     useEffect(() => {
-        // Cek apakah data ada di location.state
-        if (location.state && location.state.filteredData) {
-            setFilteredData(location.state.filteredData);
-        } else {
-            // Ambil data dari localStorage jika tidak ada di state
-            const storedData = localStorage.getItem('filteredData');
-            if (storedData) {
-                setFilteredData(JSON.parse(storedData));
+        const fetchProperty = async () => {
+            let { data, error } = await supabase
+                .from('properties')
+                .select()
+                .eq('uuid', uuid);
+            if (data) {
+                setProperty(data);
+
+                let { data: images, error: errorImages } = await supabase
+                    .from('property_images')
+                    .select('image_url')
+                    .eq('property_id', data[0].id);
+                if (images) {
+                    setImageProperties(images);
+                }
+            } else {
+                console.error(error);
             }
-        }
-    }, [location.state]);
+        };
+        fetchProperty();
+    }, []);
+
+    // const propertyId = property[0].id;
+    // console.log(id);
 
     return (
         <div>
-            {!data ? (
-                <div>data not found</div>
+            {property === null ? (
+                <div>property not found</div>
             ) : (
                 <div>
                     <Navbar />
-                    <div>
-                        DETAIL PROPERTY {data.id} {data.city}
-                    </div>
+                    <ImageCarousel images={imageProperties} />
                 </div>
             )}
         </div>

@@ -1,9 +1,10 @@
 import { dataRangesPrice as ranges } from '@/data/datas';
-import { ListProperty } from '@/data/listPropeti';
-import { useState } from 'react';
+import { supabase } from '@/utils/supabase/client';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
+    const [dataProperties, setDataProperties] = useState([]);
     const [location, setLocation] = useState('');
     const [propertyType, setPropertyType] = useState('');
     const [priceRange, setPriceRange] = useState('');
@@ -11,14 +12,22 @@ const SearchBar = () => {
     // const [sellType, setSellType] = useState('');
     const navigate = useNavigate();
 
-    // console.log(priceRange);
+    useEffect(() => {
+        const getDataProperties = async () => {
+            const { data: properties } = await supabase
+                .from('properties')
+                .select('*');
+            setDataProperties(properties);
+        };
+        getDataProperties();
+    }, []);
 
     // filter kota  yang sama
-    const uniqueCities = [...new Set(ListProperty.map((item) => item.city))];
+    const uniqueCities = [...new Set(dataProperties.map((item) => item.city))];
 
     // filter tipe properti yang sama
     const uniquePropertyTypes = [
-        ...new Set(ListProperty.map((item) => item.propertyType)),
+        ...new Set(dataProperties.map((item) => item.property_type)),
     ];
 
     const handleSearch = () => {
@@ -27,34 +36,41 @@ const SearchBar = () => {
             ? priceRange
                   .split('-')
                   .map((price) => parseInt(price.replace(/\D/g, '')))
-            : [0, Infinity];
+            : [0, 0];
 
         // Filter data berdasarkan input pengguna
-        const filteredData = ListProperty.filter(
-            (item) =>
-                (location === '' || item.city === location) &&
-                (propertyType === '' || item.propertyType === propertyType) &&
-                // (sellType === '' || item.sellType === sellType) &&
-                item.price >= minPrice &&
-                item.price <= maxPrice
-        );
+        // const filteredData = dataProperties.filter(
+        //     (item) =>
+        //         (location === '' || item.city === location) &&
+        //         (propertyType === '' || item.property_type === propertyType) &&
+        //         // (sellType === '' || item.sellType === sellType) &&
+        //         item.price >= minPrice &&
+        //         item.price <= maxPrice
+        // );
 
-        // Simpan hasil pencarian ke localStorage
-        localStorage.setItem('filteredData', JSON.stringify(filteredData));
+        // // Simpan hasil pencarian ke localStorage
+        // localStorage.setItem('filteredData', JSON.stringify(filteredData));
 
-        localStorage.setItem(
-            'dataFilter',
-            JSON.stringify([
-                {
-                    location,
-                    propertyType,
-                    priceRange,
-                },
-            ])
-        );
+        // localStorage.setItem(
+        //     'dataFilter',
+        //     JSON.stringify([
+        //         {
+        //             location,
+        //             propertyType,
+        //             priceRange,
+        //         },
+        //     ])
+        // );
+
+        const queryParams = new URLSearchParams({
+            city: location || '',
+            property_type: propertyType || '',
+            minPrice: minPrice || '',
+            maxPrice: maxPrice || '',
+        }).toString();
 
         // Navigasi ke halaman /property dengan data yang difilter
-        navigate('/property', { state: { filteredData } });
+        navigate(`/property?${queryParams}`);
     };
 
     return (
