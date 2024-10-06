@@ -1,19 +1,19 @@
-import AboutLayout from './components/About';
+import AboutLayout from './components/Layouts/About';
 import Login from './components/Layouts/Admin/Auth/Login';
 import DetailLayout from './components/Layouts/DetailProperty';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
+import ContactUsLayout from './components/Layouts/Contact-Us';
 import AddPropertyPage from './pages/Admin/AddPropertyPage';
 import AdminPages from './pages/Admin/AdminPages';
 import EditPropertyPage from './pages/Admin/EditPropertyPage';
-import HomePage from './pages/HomePage';
-import PropertyPage from './pages/PropertyPage';
-import ContactUsLayout from './components/Layouts/Contact-Us';
+import FaqPage from './pages/Admin/FaqPage';
 import PrivacyPage from './pages/Admin/PrivacyPage';
 import TermsPage from './pages/Admin/TermsPage';
-import FaqPage from './pages/Admin/FaqPage';
+import HomePage from './pages/HomePage';
+import PropertyPage from './pages/PropertyPage';
 
 const router = createBrowserRouter([
     {
@@ -26,15 +26,15 @@ const router = createBrowserRouter([
     },
     {
         path: '/privacy',
-        element: <PrivacyPage/>
+        element: <PrivacyPage />,
     },
     {
         path: '/terms',
-        element: <TermsPage/>
+        element: <TermsPage />,
     },
     {
         path: '/faq',
-        element: <FaqPage/>
+        element: <FaqPage />,
     },
     {
         path: '/property/detail/:id',
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/contact-us',
-        element: <ContactUsLayout/>
+        element: <ContactUsLayout />,
     },
     {
         path: '/admin',

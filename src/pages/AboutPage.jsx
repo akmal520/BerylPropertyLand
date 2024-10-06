@@ -1,10 +1,10 @@
-import AboutLayout from '@/components/About';
+import AboutLayout from '@/components/Layouts/About';
 import React from 'react';
 
 const AboutPage = () => {
     return (
         <>
-        <AboutLayout/>
+            <AboutLayout />
         </>
     );
 };
