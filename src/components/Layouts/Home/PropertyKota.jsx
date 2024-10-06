@@ -1,13 +1,28 @@
-import { dataListProperty } from '@/data/datas';
-import { ListProperty } from '@/data/listPropeti';
-import React, { useState } from 'react';
+import { supabase } from '@/utils/supabase/client';
+import { useEffect, useState } from 'react';
 import { GiModernCity } from 'react-icons/gi';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const PropertyKota = () => {
+    const location = useLocation();
+    const [cities, setCities] = useState([]);
     // const [location, setLocation] = useState('');
+
+    useEffect(() => {
+        const getCity = async () => {
+            let { data: cities, error } = await supabase
+                .from('properties')
+                .select('city, price');
+            if (cities) {
+                setCities(cities);
+            }
+        };
+
+        getCity();
+    }, []);
+
     const navigate = useNavigate();
-    const uniqueCities = [...new Set(ListProperty.map((item) => item.city))];
+    const uniqueCities = [...new Set(cities.map((item) => item.city))];
 
     const sliceData =
         uniqueCities.length % 2 !== 0
@@ -15,63 +30,51 @@ const PropertyKota = () => {
             : uniqueCities;
 
     const handelClickCity = (city) => {
-        localStorage.setItem(
-            'dataFilter',
-            JSON.stringify([
-                {
-                    location: city,
-                    propertyType: '',
-                    priceRange: '',
-                },
-            ])
+        const queryParams = new URLSearchParams({
+            city: city,
+            // property_type: selectPropertyType ,
+            // minPrice: minPrice ,
+            // maxPrice: maxPrice ,
+            // bedrooms: selectBedRooms ,
+            // bathrooms: selectBathRooms ,
+        }).toString();
+        navigate(`/property?${queryParams}`);
+    };
+
+    const getAveragePriceByCity = (cityKey) => {
+        // Filter data berdasarkan kota
+        const cityData = cities.filter(
+            (item) => item.city.toLowerCase() === cityKey.toLowerCase()
         );
 
-        navigate('/property', {
-            state: {
-                filteredData: ListProperty.filter((item) => item.city === city),
-            },
-        });
-    };
-
-    const formatCurrency = (number) => {
-        if (number >= 1e9) {
-            return `Rp ${(number / 1e9).toFixed(1)} M`; // Format miliar
-        } else if (number >= 1e6) {
-            return `Rp ${(number / 1e6).toFixed(1)} JT`; // Format juta
-        } else if (number >= 1e3) {
-            return `Rp ${(number / 1e3).toFixed(1)} K`; // Format ribu
+        // Jika kota tidak ditemukan
+        if (cityData.length === 0) {
+            return `Kota ${cityKey} tidak ditemukan.`;
         }
-        return `Rp. ${number}`; // Jika kurang dari 1.000
-    };
 
-    const getFormattedAveragePricePerCity = (data) => {
-        const cityPriceData = {};
+        // Hitung total dan rata-rata harga
+        const totalPrice = cityData.reduce(
+            (sum, item) => sum + parseInt(item.price, 10),
+            0
+        );
+        const averagePrice = totalPrice / cityData.length;
 
-        // Kelompokkan data berdasarkan kota dan hitung total harga serta jumlah properti
-        data.forEach((property) => {
-            const { city, price } = property;
-
-            if (!cityPriceData[city]) {
-                cityPriceData[city] = { totalPrice: 0, count: 0 };
+        // Fungsi untuk memformat harga
+        const formatPrice = (price) => {
+            if (price >= 1000000000) {
+                return `Rp ${(price / 1000000000).toFixed(0)} M`; // Billion
+            } else if (price >= 1000000) {
+                return `Rp ${(price / 1000000).toFixed(0)} JT`; // Million
+            } else if (price >= 1000) {
+                return `Rp ${(price / 1000).toFixed(0)} K`; // Thousand
+            } else {
+                return `Rp ${price}`; // Smaller than a million
             }
+        };
 
-            cityPriceData[city].totalPrice += price;
-            cityPriceData[city].count += 1;
-        });
-
-        // Hitung rata-rata dan format hasilnya
-        const averagePricePerCity = {};
-        for (const city in cityPriceData) {
-            const { totalPrice, count } = cityPriceData[city];
-            const averagePrice = totalPrice / count;
-            averagePricePerCity[city] = formatCurrency(averagePrice);
-        }
-
-        return averagePricePerCity;
+        // Kembalikan rata-rata harga yang sudah diformat
+        return `${formatPrice(averagePrice)}`;
     };
-
-    const formattedAveragePricePerCity =
-        getFormattedAveragePricePerCity(ListProperty);
 
     return (
         <section className="container mx-auto py-5">
@@ -79,11 +82,14 @@ const PropertyKota = () => {
                 Cari properti favoritmu
             </h2>
 
-            <div className="flex flex-wrap md:flex-row justify-center md:justify-evenly items-center gap-4 mt-4">
-                {sliceData.map((city, index) => (
+            <div
+                // className="flex flex-wrap md:flex-row justify-center md:justify-evenly items-center gap-4 mt-4"
+                className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 place-items-center"
+            >
+                {uniqueCities.map((city, index) => (
                     <div
                         key={index}
-                        className="flex flex-col md:flex-row items-center w-[150px] min-h-[175px] md:w-[500px] gap-4 justify-between border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-all duration-300"
+                        className="flex flex-col md:flex-row items-center w-[150px] min-h-[175px] md:w-[350px] gap-4 justify-between border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg transition-all duration-300"
                         onClick={() => handelClickCity(city)}
                     >
                         <GiModernCity className="text-sub_head text-4xl md:text-6xl" />
@@ -95,7 +101,7 @@ const PropertyKota = () => {
                                 Rata-rata
                             </h5>
                             <h5 className="text-sub_head text-sm md:text-base">
-                                {formattedAveragePricePerCity[city]}
+                                {getAveragePriceByCity(city)}
                             </h5>
                         </div>
                     </div>

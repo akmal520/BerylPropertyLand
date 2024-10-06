@@ -7,11 +7,11 @@ const FileUpload = ({ setImages }) => {
 
     const handleFileUpload = (event) => {
         // limit image to 5
-        if (imagePreview.length <= 4) {
-            const files = event.target.files;
-
+        const files = event.target.files;
+        const totalImages = imagePreview.length + files.length;
+        if (totalImages <= 5) {
             const filesArray = Array.from(files);
-            setImages(filesArray);
+            setImages((prevImages) => [...prevImages, ...filesArray]);
 
             const previews = Array.from(files).map((file) =>
                 URL.createObjectURL(file)
@@ -27,6 +27,8 @@ const FileUpload = ({ setImages }) => {
     const handleRemoveImage = (index) => {
         const filtered = imagePreview.filter((_, i) => i !== index);
         setImagePreview(filtered);
+
+        setImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
     // useEffect(() => {
@@ -57,15 +59,40 @@ const FileUpload = ({ setImages }) => {
                                 d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                             />
                         </svg>
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold">
-                                Click to upload
-                            </span>{' '}
-                            or drag and drop
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                            SVG, PNG, JPG or GIF (MAX. 800x400px)
-                        </p>
+                        {imagePreview.length >= 5 ? (
+                            <>
+                                <p className="mb-2 text-sm text-gray-500 font-bold dark:text-gray-400">
+                                    Maksimal 5 gambar
+                                </p>
+                                <p className="mb-2 text-sm text-gray-500 font-semibold dark:text-gray-400">
+                                    Kamu sudah memasukkan 5 gambar
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                {imagePreview.length === 0 ? (
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                        Upload gambar
+                                    </p>
+                                ) : (
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                        <span className="font-semibold">
+                                            Anda sudah memasukkan{' '}
+                                            {imagePreview.length} Gambar
+                                        </span>
+                                    </p>
+                                )}
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                    <span className="font-semibold">
+                                        Click to upload
+                                    </span>{' '}
+                                    or drag and drop
+                                </p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    PNG, JPG or JPEG
+                                </p>
+                            </>
+                        )}
                     </div>
                     <input
                         id="dropzone-file"
@@ -75,6 +102,7 @@ const FileUpload = ({ setImages }) => {
                         multiple
                         accept="image/jpeg,image/png,image/jpg"
                         onChange={handleFileUpload}
+                        disabled={imagePreview.length >= 5}
                     />
                 </label>
             </div>

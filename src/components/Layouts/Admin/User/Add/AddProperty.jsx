@@ -17,10 +17,12 @@ import { Home, LayoutDashboard } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
+import { v4 as uuid } from 'uuid';
 
 const AddProperty = () => {
     const [userEmail, setUserEmail] = useState(null);
     const [images, setImages] = useState([]);
+    // const [thumbnail, setThumbnail] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const getUSer = async () => {
@@ -54,7 +56,7 @@ const AddProperty = () => {
             const imageUploadPromises = images.map(async (image, index) => {
                 const file = image;
                 const d = new Date();
-                const fileName = Date.now() + '-' + d.getTime().toString();
+                const fileName = uuid().toString();
                 const fileExt = file.name.split('.').pop();
                 const { data: imageData, error: imageError } =
                     await supabase.storage
@@ -98,6 +100,14 @@ const AddProperty = () => {
             toast.error(error.message);
         }
     };
+
+    // const handleThumbnail = (event) => {
+    //     const file = event.target.files[0];
+    //     console.log(file);
+    //     const preview = URL.createObjectURL(file);
+    //     setThumbnail(preview);
+    // };
+
     return (
         <div>
             <Toaster richColors />
@@ -114,7 +124,7 @@ const AddProperty = () => {
                     </Link>
                 </Sidebar>
 
-                <div className="w-full max-h-screen overflow-y-auto">
+                <div className="w-full max-h-screen overflow-y-scroll">
                     <div className="container mx-auto py-4 md:py-6 flex justify-between items-center sticky top-0 z-10 bg-white">
                         <h1 className="text-2xl font-bold py-4 text-gray-800 md:text-3xl">
                             Add Property
@@ -437,6 +447,35 @@ const AddProperty = () => {
                                                 />
                                             </div>
                                         </div>
+
+                                        {/* <div className="flex flex-wrap md:flex-nowrap gap-4 md:gap-10">
+                                            <div>
+                                                <Label
+                                                    className="block mb-2 text-lg font-medium"
+                                                    htmlFor="large_size"
+                                                >
+                                                    Thumbnail
+                                                </Label>
+                                                <Input
+                                                    className="block w-[300px] text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none   "
+                                                    id="large_size"
+                                                    type="file"
+                                                    onChange={handleThumbnail}
+                                                />
+                                            </div>
+
+                                            <div className="">
+                                                {thumbnail ? (
+                                                    <img
+                                                        src={thumbnail}
+                                                        alt="thumbnail"
+                                                        className="w-[100px] h-[100px] object-cover border border-gray-300 rounded-lg p-2 bg-gray-50"
+                                                    />
+                                                ) : (
+                                                    ''
+                                                )}
+                                            </div>
+                                        </div> */}
 
                                         <div>
                                             <FileUpload

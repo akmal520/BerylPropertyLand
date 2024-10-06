@@ -13,12 +13,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { dataRooms, dataRangesPrice as ranges } from '@/data/datas';
-import { ListProperty } from '@/data/listPropeti';
+import { supabase } from '@/utils/supabase/client';
 import { Filter, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const PropertySearch = () => {
+const PropertySearch = ({ onSearch }) => {
+    const location = useLocation();
+    const [listProperty, setListProperty] = useState([]);
+
+    const searchParams = new URLSearchParams(location.search);
     // const [searchBar, setSearchBar] = useState('');
     // const [selectPriceRange, setSelectPriceRange] = useState('');
     const [selectPropertyType, setSelectPropertyType] = useState('');
@@ -36,88 +40,95 @@ const PropertySearch = () => {
 
     const navigate = useNavigate();
 
-    // ambil data local storage dataFilter lalu masukin ke state selectLocation
-
-    const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
     useEffect(() => {
-        if (dataFilter.length > 0) {
-            const {
-                location = '',
-                propertyType = '',
-                priceRange = '',
-            } = dataFilter[0];
-
-            setSelectLocation(location);
-            setSelectPropertyType(propertyType);
-
-            if (priceRange) {
-                const [minPrice, maxPrice] = priceRange
-                    .split('-')
-                    .map((price) => parseInt(price.replace(/\D/g, ''), 10));
-
-                setMinPrice(minPrice ? minPrice.toString() : '');
-                setMaxPrice(maxPrice ? maxPrice.toString() : '');
-            }
-        }
+        setSelectLocation(searchParams.get('city') || '');
+        setSelectPropertyType(searchParams.get('property_type') || '');
+        setMinPrice(searchParams.get('minPrice') || '');
+        setMaxPrice(searchParams.get('maxPrice') || '');
     }, []);
 
-    useEffect(() => {
-        const newFilteredData = ListProperty.filter((data) => {
-            // const searchMatch =
-            //     searchBar === '' ||
-            //     data.includes(searchBar.toLocaleLowerCase());
+    // ambil data local storage dataFilter lalu masukin ke state selectLocation
 
-            const locationMatch =
-                selectLocation === '' ||
-                data.city === selectLocation ||
-                data.city.includes(selectLocation);
+    // const dataFilter = JSON.parse(localStorage.getItem('dataFilter')) || [];
+    // useEffect(() => {
+    //     if (dataFilter.length > 0) {
+    //         const {
+    //             location = '',
+    //             propertyType = '',
+    //             priceRange = '',
+    //         } = dataFilter[0];
 
-            const propertyTypeMatch =
-                selectPropertyType === '' ||
-                data.propertyType === selectPropertyType;
+    //         setSelectLocation(location);
+    //         setSelectPropertyType(propertyType);
 
-            const bedRoomsMatch =
-                selectBedRooms === null ||
-                (selectBedRooms === 5
-                    ? data.bedroom >= 5
-                    : data.bedroom === selectBedRooms);
+    //         if (priceRange) {
+    //             const [minPrice, maxPrice] = priceRange
+    //                 .split('-')
+    //                 .map((price) => parseInt(price.replace(/\D/g, ''), 10));
 
-            const bathRoomsMatch =
-                selectBathRooms === null ||
-                (selectBathRooms === 5
-                    ? data.bathroom >= 5
-                    : data.bathroom === selectBathRooms);
+    //             setMinPrice(minPrice ? minPrice.toString() : '');
+    //             setMaxPrice(maxPrice ? maxPrice.toString() : '');
+    //         }
+    //     }
+    // }, []);
 
-            const minPriceMatch =
-                minPrice === '' || data.price >= parseCurrency(minPrice);
+    // useEffect(() => {
+    //     const newFilteredData = ListProperty.filter((data) => {
+    //         // const searchMatch =
+    //         //     searchBar === '' ||
+    //         //     data.includes(searchBar.toLocaleLowerCase());
 
-            const maxPriceMatch =
-                maxPrice === '' || data.price <= parseCurrency(maxPrice);
+    //         const locationMatch =
+    //             selectLocation === '' ||
+    //             data.city === selectLocation ||
+    //             data.city.includes(selectLocation);
 
-            const priceMatch = minPriceMatch && maxPriceMatch;
-            return (
-                propertyTypeMatch &&
-                bathRoomsMatch &&
-                bedRoomsMatch &&
-                priceMatch &&
-                locationMatch
-            );
-        });
+    //         const propertyTypeMatch =
+    //             selectPropertyType === '' ||
+    //             data.propertyType === selectPropertyType;
 
-        setFilteredData(newFilteredData);
-    }, [
-        selectPropertyType,
-        selectBedRooms,
-        selectBathRooms,
-        minPrice,
-        maxPrice,
-        selectLocation,
-    ]);
+    //         const bedRoomsMatch =
+    //             selectBedRooms === null ||
+    //             (selectBedRooms === 5
+    //                 ? data.bedroom >= 5
+    //                 : data.bedroom === selectBedRooms);
 
-    useEffect(() => {
-        localStorage.setItem('filteredData', JSON.stringify(filteredData));
-        navigate('/property', { state: { filteredData } });
-    }, [filteredData]);
+    //         const bathRoomsMatch =
+    //             selectBathRooms === null ||
+    //             (selectBathRooms === 5
+    //                 ? data.bathroom >= 5
+    //                 : data.bathroom === selectBathRooms);
+
+    //         const minPriceMatch =
+    //             minPrice === '' || data.price >= parseCurrency(minPrice);
+
+    //         const maxPriceMatch =
+    //             maxPrice === '' || data.price <= parseCurrency(maxPrice);
+
+    //         const priceMatch = minPriceMatch && maxPriceMatch;
+    //         return (
+    //             propertyTypeMatch &&
+    //             bathRoomsMatch &&
+    //             bedRoomsMatch &&
+    //             priceMatch &&
+    //             locationMatch
+    //         );
+    //     });
+
+    //     setFilteredData(newFilteredData);
+    // }, [
+    //     selectPropertyType,
+    //     selectBedRooms,
+    //     selectBathRooms,
+    //     minPrice,
+    //     maxPrice,
+    //     selectLocation,
+    // ]);
+
+    // useEffect(() => {
+    //     localStorage.setItem('filteredData', JSON.stringify(filteredData));
+    //     navigate('/property', { state: { filteredData } });
+    // }, [filteredData]);
 
     const formatCurrency = (value) => {
         if (!value) return '';
@@ -134,12 +145,12 @@ const PropertySearch = () => {
 
     const handleInputSearchBar = (e) => {
         const searcTerm = e.target.value.toLocaleLowerCase();
-        if (searcTerm.length > 0) {
+        if (searcTerm.length > 3) {
             setSelectLocation(searcTerm);
 
             // buat set localStorage dataFilter value location jadi kosong
-            dataFilter[0].location = '';
-            localStorage.setItem('dataFilter', JSON.stringify(dataFilter));
+            // dataFilter[0].location = '';
+            // localStorage.setItem('dataFilter', JSON.stringify(dataFilter));
         } else {
             setSelectLocation('');
         }
@@ -163,8 +174,23 @@ const PropertySearch = () => {
         setMaxPrice(e.target.value);
     };
 
+    useEffect(() => {
+        const getPropertyType = async () => {
+            const { data, error } = await supabase
+                .from('properties')
+                .select('property_type');
+            if (data) {
+                setListProperty(data);
+            } else {
+                console.error(error);
+            }
+        };
+
+        getPropertyType();
+    }, []);
+
     const uniquePropertyTypes = [
-        ...new Set(ListProperty.map((item) => item.propertyType)),
+        ...new Set(listProperty.map((item) => item.property_type)),
     ];
     const handlePropertyTypeChange = (type) => {
         if (selectPropertyType === type) {
@@ -207,14 +233,36 @@ const PropertySearch = () => {
         setSelectLocation('');
         setMinPrice('');
         setMaxPrice('');
-        localStorage.setItem(
-            'dataFilter',
-            JSON.stringify({
-                location: '',
-                propertyType: '',
-                priceRange: '',
-            })
-        );
+        // localStorage.setItem(
+        //     'dataFilter',
+        //     JSON.stringify({
+        //         location: '',
+        //         propertyType: '',
+        //         priceRange: '',
+        //     })
+        // );
+
+        const queryParams = new URLSearchParams({
+            city: '',
+            property_type: '',
+            minPrice: '',
+            maxPrice: '',
+            bedrooms: '',
+            bathrooms: '',
+        }).toString();
+        navigate(`/property?${queryParams}`);
+    };
+
+    const handleSearch = () => {
+        const queryParams = new URLSearchParams({
+            city: selectLocation || '',
+            property_type: selectPropertyType || '',
+            minPrice: minPrice || '',
+            maxPrice: maxPrice || '',
+            bedrooms: selectBedRooms || '',
+            bathrooms: selectBathRooms || '',
+        }).toString();
+        navigate(`/property?${queryParams}`);
     };
 
     return (
@@ -229,14 +277,16 @@ const PropertySearch = () => {
                         <Input
                             type="text"
                             placeholder="Cari kota . . ."
-                            className="w-full h-12 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus:!border-0"
+                            className="w-full h-12 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus:!border-0 capitalize"
                             onChange={handleInputSearchBar}
+                            defaultValue={selectLocation}
                         />
 
                         <Button
                             variant="default"
                             size="icon"
                             className="absolute bg-transparent w-12 h-12 rounded-full top-0 right-0 text-gray-400 hover:bg-transparent hover:text-gray-600"
+                            onClick={handleSearch}
                         >
                             <Search size={26} />
                         </Button>
@@ -435,7 +485,11 @@ const PropertySearch = () => {
                                         Reset
                                     </Button>
                                     <DialogClose asChild>
-                                        <Button variant="default" className="">
+                                        <Button
+                                            onClick={handleSearch}
+                                            variant="default"
+                                            className=""
+                                        >
                                             Apply
                                         </Button>
                                     </DialogClose>

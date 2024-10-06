@@ -1,39 +1,65 @@
-import { ListProperty } from '@/data/listPropeti';
 import { formatCurrency, getLatestProperty } from '@/hooks/CustomHook';
+import { supabase } from '@/utils/supabase/client';
 import { BathIcon, BedSingleIcon, HouseIcon, LandPlotIcon } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const PropertyType = () => {
-    const latestProperty = getLatestProperty(ListProperty);
+    const [dataProperties, setDataProperties] = useState([]);
+    const [imageProperties, setImageProperties] = useState([]);
 
     useEffect(() => {
-        localStorage.setItem('filteredData', JSON.stringify(latestProperty));
-    }, [latestProperty]);
+        const fetchDataProperties = async () => {
+            let { data, error } = await supabase.from('properties').select('*');
 
-    // const properties = [
-    //     {
-    //         id: 1,
-    //         city: 'Jakarta',
-    //         title: 'Apartemen di Jakarta',
-    //         price: 'Rp 1.500.000.000',
-    //         image: propertyList1,
-    //     },
-    //     {
-    //         id: 2,
-    //         city: 'Bandung',
-    //         title: 'Villa di Bandung',
-    //         price: 'Rp 2.000.000.000',
-    //         image: propertyList2,
-    //     },
-    //     {
-    //         id: 3,
-    //         city: 'Bali',
-    //         title: 'Rumah di Bali',
-    //         price: 'Rp 3.500.000.000',
-    //         image: propertyList3,
-    //     },
-    // ];
+            data ? setDataProperties(data) : console.error(error);
+            // if (data) {
+            //     setDataProperties(data);
+            // } else {
+            //     console.error(error);
+            // }
+        };
+
+        fetchDataProperties();
+    }, []);
+
+    useEffect(() => {
+        const fetchImageProperties = async () => {
+            let { data, error } = await supabase
+                .from('property_images')
+                .select('image_url, property_id, properties (id)');
+
+            if (data) {
+                const uniqueImages = [];
+                const seenPropertyIds = new Set();
+                data.forEach((image) => {
+                    if (!seenPropertyIds.has(image.properties.id)) {
+                        uniqueImages.push(image);
+                        seenPropertyIds.add(image.properties.id);
+                    }
+                });
+                setImageProperties(uniqueImages);
+            } else {
+                console.error(error);
+            }
+        };
+
+        fetchImageProperties();
+    }, []);
+
+    // ambil url image dari imageProperties berdasarkan id property
+    const getImageUrl = (propertyId) => {
+        const image = imageProperties.find(
+            (image) => image.properties.id === propertyId
+        );
+        return image ? image.image_url : null;
+    };
+
+    const latestProperty = getLatestProperty(dataProperties);
+
+    // useEffect(() => {
+    //     localStorage.setItem('filteredData', JSON.stringify(latestProperty));
+    // }, [latestProperty]);
 
     return (
         // <section className="container mx-auto py-5">
@@ -103,14 +129,14 @@ const PropertyType = () => {
                     >
                         <div className="h-full border rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 w-[320px] md:w-[250px] flex flex-col">
                             <img
-                                src={property.imgProperty}
+                                src={getImageUrl(property.id)}
                                 alt={property.city}
                                 className="aspect-[4/3] object-cover"
                             />
                             <div className="p-4 flex flex-col flex-grow">
                                 <div className="mb-4">
                                     <h3 className="font-semibold text-2xl md:text-lg capitalize text-head">
-                                        {property.propertyType} -{' '}
+                                        {property.property_type} -{' '}
                                         {property.city}
                                     </h3>
                                     <p className="text-sub_head capitalize text-lg md:text-sm mt-2 truncate">
