@@ -1,3 +1,4 @@
+import avaMale from '@/assets/male.jpg';
 import {
     Card,
     CardContent,
@@ -12,9 +13,6 @@ import { FaWhatsapp } from 'react-icons/fa6';
 import { FiPhone } from 'react-icons/fi';
 import { TfiFaceSad } from 'react-icons/tfi';
 import { Link, useLocation } from 'react-router-dom';
-
-const avaMale = './src/assets/male.jpg';
-const avaFemale = './src/assets/female.jpg';
 
 const PropertyCard = (props) => {
     const { dataProperties, children } = props;
