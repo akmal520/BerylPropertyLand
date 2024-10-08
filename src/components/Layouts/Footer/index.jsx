@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     const footerNav = [
         { name: 'cari properti', path: '/property' },
-        { name: 'syarat & ketentuan', path: '/terms' },
+        { name: 'syarat & ketentuan', path: '/' },
         { name: 'Kebijakan Privasi', path: '/privacy' },
         { name: 'FAQ', path: '/faq' },
     ];

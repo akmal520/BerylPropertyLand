@@ -28,10 +28,10 @@ const router = createBrowserRouter([
         path: '/privacy',
         element: <PrivacyPage />,
     },
-    {
-        path: '/terms',
-        element: <TermsPage />,
-    },
+    // {
+    //     path: '/terms',
+    //     element: <TermsPage />,
+    // },
     {
         path: '/faq',
         element: <FaqPage />,

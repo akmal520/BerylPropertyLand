@@ -8,7 +8,7 @@ const TentangKami = () => {
                 <div className="flex justify-center mb-4 border-b-2 pb-8">
                     <img src={Logo1} alt="Logo" className="w-28 md:w-36" />
                 </div>
-                <h1 className="text-center font-extrabold text-2xl">
+                <h1 className="text-center text-head font-extrabold text-2xl">
                     Beryl Property Land
                 </h1>
                 <div>
