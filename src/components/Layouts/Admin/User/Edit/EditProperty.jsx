@@ -295,7 +295,6 @@ const EditProperty = (props) => {
                                                     id="bedroom"
                                                     placeholder="3"
                                                     min="1"
-                                                    max="5"
                                                     className="focus:!ring-1"
                                                     defaultValue={
                                                         dataEditProperty?.bedroom
@@ -317,7 +316,6 @@ const EditProperty = (props) => {
                                                     id="bathroom"
                                                     placeholder="2"
                                                     min="1"
-                                                    max="5"
                                                     className="focus:!ring-1"
                                                     defaultValue={
                                                         dataEditProperty?.bathroom
@@ -449,6 +447,133 @@ const EditProperty = (props) => {
                                         <div className="flex flex-wrap md:flex-nowrap gap-4 md:gap-10">
                                             <div className="w-full">
                                                 <Label
+                                                    htmlFor="number_phone"
+                                                    className="text-lg"
+                                                >
+                                                    Nomor Telepon
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    name="number_phone"
+                                                    id="number_phone"
+                                                    placeholder="62123456789"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    maxLength="13"
+                                                    defaultValue={
+                                                        dataEditProperty?.number_phone
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="w-full">
+                                                <Label
+                                                    htmlFor="listrik"
+                                                    className="text-lg"
+                                                >
+                                                    Listrik
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    name="listrik"
+                                                    id="listrik"
+                                                    placeholder="ex: 2200"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    maxLength="13"
+                                                    defaultValue={
+                                                        dataEditProperty?.listrik
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="w-full">
+                                                <Label
+                                                    htmlFor="car_port"
+                                                    className="text-lg"
+                                                >
+                                                    Garasi
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    name="car_port"
+                                                    id="car_port"
+                                                    placeholder="ex: 2"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    maxLength="13"
+                                                    defaultValue={
+                                                        dataEditProperty?.car_port
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="w-full">
+                                                <Label
+                                                    htmlFor="air"
+                                                    className="text-lg"
+                                                >
+                                                    Air
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="air"
+                                                    id="air"
+                                                    placeholder="ex: Jetpump"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    defaultValue={
+                                                        dataEditProperty?.air
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="w-full">
+                                                <Label
+                                                    htmlFor="sertifikat"
+                                                    className="text-lg"
+                                                >
+                                                    Sertifikat
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="sertifikat"
+                                                    id="sertifikat"
+                                                    placeholder="ex: SHM"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    maxLength="13"
+                                                    defaultValue={
+                                                        dataEditProperty?.sertifikat
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="w-full">
+                                                <Label
+                                                    htmlFor="lantai"
+                                                    className="text-lg"
+                                                >
+                                                    Lantai
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    name="lantai"
+                                                    id="lantai"
+                                                    placeholder="ex: 2"
+                                                    className="focus:!ring-1"
+                                                    onChange={handleChange}
+                                                    maxLength="13"
+                                                    defaultValue={
+                                                        dataEditProperty?.lantai
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-wrap md:flex-nowrap gap-4 md:gap-10">
+                                            <div className="w-full">
+                                                <Label
                                                     htmlFor="description"
                                                     className="text-lg"
                                                 >
@@ -480,27 +605,6 @@ const EditProperty = (props) => {
                                                         dataEditProperty?.address
                                                     }
                                                     onChange={handleChange}
-                                                />
-                                            </div>
-
-                                            <div className="w-full">
-                                                <Label
-                                                    htmlFor="number_phone"
-                                                    className="text-lg"
-                                                >
-                                                    Nomor Telepon
-                                                </Label>
-                                                <Input
-                                                    type="number"
-                                                    name="number_phone"
-                                                    id="number_phone"
-                                                    placeholder="+62123456789"
-                                                    className="focus:!ring-1"
-                                                    defaultValue={
-                                                        dataEditProperty?.number_phone
-                                                    }
-                                                    onChange={handleChange}
-                                                    maxLength="13"
                                                 />
                                             </div>
                                         </div>

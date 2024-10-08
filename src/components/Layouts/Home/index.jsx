@@ -5,9 +5,12 @@ import LayananKami from './LayananKami';
 import MengapaMemilihKami from './MengapaMemilihKami';
 import PropertyKota from './PropertyKota';
 import PropertyType from './PropertyType';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const HomeLayout = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
     return (
         <>
             <Navbar />

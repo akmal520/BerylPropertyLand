@@ -64,17 +64,17 @@ const ImageCarousel = (props) => {
                 </div>
             </div> */}
 
-            <div className="w-full flex justify-center py-10">
+            <div className="w-full flex justify-center mt-10">
                 <Carousel
                     opts={{ align: 'center', loop: true }}
                     plugins={[Autoplay({ delay: 3000 })]}
-                    className="w-full max-w-7xl"
+                    className="w-full max-w-sm md:max-w-7xl"
                 >
                     <CarouselContent>
                         {images.map((image, index) => (
                             <CarouselItem
                                 key={index}
-                                className=" md:basis-1/2 lg:basis-1/3"
+                                className="md:basis-1/2 lg:basis-1/3"
                             >
                                 <div className="p-1">
                                     <img
@@ -102,8 +102,8 @@ const ImageCarousel = (props) => {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselNext />
-                    <CarouselPrevious />
+                    <CarouselNext className="-right-1 md:-right-10" />
+                    <CarouselPrevious className="-left-1 md:-left-10" />
                 </Carousel>
             </div>
         </div>

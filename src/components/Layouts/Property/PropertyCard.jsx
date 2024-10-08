@@ -134,7 +134,7 @@ const PropertyCardList = (props) => {
                                             </span>
                                         </div>
 
-                                        <p className="text-3xl md:text-2xl text-head font-semibold mt-auto">
+                                        <p className="text-3xl md:text-2xl text-head font-semibold py-2">
                                             {formatCurrency(item.price)}
                                         </p>
                                     </div>
@@ -149,7 +149,7 @@ const PropertyCardList = (props) => {
                                     />
 
                                     <div className="flex flex-col w-[500px] select-none">
-                                        <h4 className="capitalize text-head text-lg md:text-base font-medium">
+                                        <h4 className="capitalize text-head text-base md:text-sm font-medium">
                                             {item.developer}
                                         </h4>
                                         <Separator className="h-0.5 bg-sub_head rounded-full" />

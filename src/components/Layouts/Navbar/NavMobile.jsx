@@ -1,10 +1,12 @@
 import { dataNavigation } from '@/data/datas';
+import { useAuthSession } from '@/hooks/CustomHook';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
 const NavMobile = () => {
+    const { session } = useAuthSession();
     const [isOpen, setIsOpen] = useState(false);
 
     // disable body scroll
@@ -55,6 +57,24 @@ const NavMobile = () => {
                         </Link>
                     </li>
                 ))}
+                {session ? (
+                    <li className="mb-8 text-black hover:text-yellow-700 transition-all duration-100 text-center border border-head px-3 py-2 rounded-xl">
+                        <Link
+                            to="/admin"
+                            className="text-xl cursor-pointer capitalize transition-all duration-100"
+                        >
+                            Admin
+                        </Link>
+                    </li>
+                ) : (
+                    // <Link
+                    //     to="/admin"
+                    //     className="text-yellow-600 hover:bg-yellow-600 hover:text-white transition-all duration-300 border border-yellow-600 px-3 py-2 rounded-xl text-sm font-semibold mb-20"
+                    // >
+                    //     Admin
+                    // </Link>
+                    <></>
+                )}
                 <div className="flex space-x-4">
                     <Link
                         to="#instagram"

@@ -1,14 +1,17 @@
-import React from 'react';
-import Navbar from '../Navbar/Navbar'
-import Footer from '../Footer'
+import Footer from '../Footer';
+import Navbar from '../Navbar/Navbar';
 import FAQ from './FAQ';
+import React, { useEffect } from 'react';
 
 const FaqLayout = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
     return (
         <>
-        <Navbar/>
-        <FAQ/>
-        <Footer/>
+            <Navbar />
+            <FAQ />
+            <Footer />
         </>
     );
 };
