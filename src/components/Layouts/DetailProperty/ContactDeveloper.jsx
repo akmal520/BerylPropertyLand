@@ -49,15 +49,12 @@ const ContactDeveloper = ({ data }) => {
         };
     }, []);
 
-    console.log(sticky);
-
     const getAngsuranByTahun = (tahun) => {
         if (angsuranList && angsuranList.length > 0) {
             const angsuran = angsuranList.find((item) => item.tahun === tahun);
             return angsuran.angsuran;
         }
     };
-    console.log(getAngsuranByTahun(20));
 
     return (
         <section
