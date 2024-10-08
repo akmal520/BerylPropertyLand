@@ -8,7 +8,7 @@ export default {
         },
         extend: {
             backgroundImage: {
-                hero: 'url("./src/assets/Banner_Image.jpg")',
+                hero: 'url("/src/assets/Banner_Image.jpg")',
             },
             borderRadius: {
                 lg: 'var(--radius)',
