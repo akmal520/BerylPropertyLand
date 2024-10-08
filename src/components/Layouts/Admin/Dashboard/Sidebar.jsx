@@ -1,6 +1,6 @@
-import logo from './src/assets/logo-1.png';
-import profile from './src/assets/male.jpg';
 import { Toast } from '@/components/ui/toast';
+import logo from '@assets/logo-1.png';
+import profile from '@assets/male.jpg';
 import { ChevronFirst, ChevronLast, LogOut } from 'lucide-react';
 import { createContext, useContext, useState } from 'react';
 
