@@ -1,4 +1,4 @@
-import logo from '@/assets/logo-1.png';
+import logo from '@/assets/Logo-1.png';
 import profile from '@/assets/male.jpg';
 import { Toast } from '@/components/ui/toast';
 import { ChevronFirst, ChevronLast, LogOut } from 'lucide-react';
