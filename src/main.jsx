@@ -14,6 +14,7 @@ import PrivacyPage from './pages/Admin/PrivacyPage';
 import TermsPage from './pages/Admin/TermsPage';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage';
+import JoinPage from './pages/Admin/JoinPage';
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: '/privacy',
         element: <PrivacyPage />,
+    },
+    {
+        path: '/join',
+        element: <JoinPage/>
     },
     // {
     //     path: '/terms',
