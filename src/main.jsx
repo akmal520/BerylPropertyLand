@@ -9,12 +9,12 @@ import ContactUsLayout from './components/Layouts/Contact-Us';
 import AddPropertyPage from './pages/Admin/AddPropertyPage';
 import AdminPages from './pages/Admin/AdminPages';
 import EditPropertyPage from './pages/Admin/EditPropertyPage';
-import FaqPage from './pages/Admin/FaqPage';
-import PrivacyPage from './pages/Admin/PrivacyPage';
-import TermsPage from './pages/Admin/TermsPage';
+import FaqPage from './pages/FaqPage';
 import HomePage from './pages/HomePage';
+import JoinPage from './pages/JoinPage';
+import PrivacyPage from './pages/PrivacyPage';
 import PropertyPage from './pages/PropertyPage';
-import JoinPage from './pages/Admin/JoinPage';
+import TermsPage from './pages/TermsPage';
 
 const router = createBrowserRouter([
     {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/join',
-        element: <JoinPage/>
+        element: <JoinPage />,
     },
     // {
     //     path: '/terms',
