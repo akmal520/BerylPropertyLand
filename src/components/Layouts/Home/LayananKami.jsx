@@ -27,7 +27,7 @@ const LayananKami = () => {
                             key={layanan.id}
                             className="p-6 border rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
                         >
-                            <h2 className="text-xl font-semibold text-head">
+                            <h2 className="text-xl font-semibold text-head md:h-14">
                                 {layanan.title}
                             </h2>
                             <p className="text-sub_head mt-2">

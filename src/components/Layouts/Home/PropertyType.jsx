@@ -135,7 +135,7 @@ const PropertyType = () => {
                             />
                             <div className="p-4 flex flex-col flex-grow">
                                 <div className="mb-4">
-                                    <h3 className="font-semibold text-2xl md:text-lg capitalize text-head">
+                                    <h3 className="font-semibold text-2xl md:text-lg capitalize text-head md:h-12">
                                         {property.property_type} -{' '}
                                         {property.city}
                                     </h3>
